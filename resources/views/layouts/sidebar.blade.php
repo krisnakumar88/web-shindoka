@@ -13,13 +13,38 @@
     </div>
     <div class="main-sidebar-body">
         <ul class="nav">
-            <li class="nav-header"><span class="nav-label">Dashboard</span></li>
+            {{-- <li class="nav-header"><span class="nav-label">Dashboard</span></li> --}}
             <li class="nav-item">
                 <a class="nav-link" href="/pages/index"><span class="shape1"></span><span
                         class="shape2"></span><i class="ti-home sidemenu-icon"></i><span
                         class="sidemenu-label">Dashboard</span></a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="/pages/index"><span class="shape1"></span><span
+                        class="shape2"></span><i class="ti-home sidemenu-icon"></i><span
+                        class="sidemenu-label">Pengurus Daerah</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pages/index"><span class="shape1"></span><span
+                        class="shape2"></span><i class="ti-home sidemenu-icon"></i><span
+                        class="sidemenu-label">Pengurus Cabang</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pages/index"><span class="shape1"></span><span
+                        class="shape2"></span><i class="ti-home sidemenu-icon"></i><span
+                        class="sidemenu-label">Dojo</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pages/index"><span class="shape1"></span><span
+                        class="shape2"></span><i class="ti-home sidemenu-icon"></i><span
+                        class="sidemenu-label">Keanggotaan</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pages/index"><span class="shape1"></span><span
+                        class="shape2"></span><i class="ti-home sidemenu-icon"></i><span
+                        class="sidemenu-label">Keanggotaan</span></a>
+            </li>
+            {{-- <li class="nav-item">
                 <a class="nav-link with-sub" href="#"><span class="shape1"></span><span
                         class="shape2"></span><i class="ti-layout sidemenu-icon"></i><span
                         class="sidemenu-label">Layouts</span><i class="angle fe fe-chevron-right"></i></a>
@@ -661,7 +686,7 @@
                         </ul>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
         </ul>
     </div>
 </div>

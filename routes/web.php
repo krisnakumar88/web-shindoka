@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DojoController;
+use App\Http\Controllers\PengcapController;
+use App\Http\Controllers\PengdaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,4 +21,10 @@ Route::get('/', [DashboardController::class, 'index']);
 
 
 
+Route::resource('/pengda', PengdaController::class);
 
+Route::resource('/pengcab', PengcapController::class);
+
+Route::resource('/dojo', DojoController::class);
+
+Route::resource('/anggota', PelangganController::class);
