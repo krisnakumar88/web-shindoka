@@ -6,25 +6,36 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StorePengdaRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
+    public function attributes()
     {
-        return false;
+        return [
+            'nama_pengda' => 'Nama Pengda',
+            'pic' => 'Person In Charger',
+            'lokasi' => 'Alamat'
+        ];
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
+    public function authorize()
+    {
+        return true;
+    }
+
+
     public function rules()
     {
         return [
-            //
+            'nama_pengda' => 'required|min:3|max:255',
+            'lokasi' => 'required|min:3',
+            'pic' => 'required'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'nama_pengda.required' => 'Nama Pengda Tidak Boleh Kosong',
+            'lokasi.required' => 'Alamat Tidak Boleh Kosong',
+            'pic.required' => '<i>Person In Charge</i> Tidak Boleh Kosong'
         ];
     }
 }

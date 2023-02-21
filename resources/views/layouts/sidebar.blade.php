@@ -13,37 +13,49 @@
     </div>
     <div class="main-sidebar-body">
         <ul class="nav">
-            {{-- <li class="nav-header"><span class="nav-label">Dashboard</span></li> --}}
+            <li class="nav-header"><span class="nav-label">Main Menu</span></li>
             <li class="nav-item">
-                <a class="nav-link" href="/pages/index"><span class="shape1"></span><span
+                <a class="nav-link" href="/dashboard"><span class="shape1"></span><span
                         class="shape2"></span><i class="ti-home sidemenu-icon"></i><span
                         class="sidemenu-label">Dashboard</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/pages/index"><span class="shape1"></span><span
+                <a class="nav-link" href="/pengda"><span class="shape1"></span><span
                         class="shape2"></span><i class="ti-home sidemenu-icon"></i><span
                         class="sidemenu-label">Pengurus Daerah</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/pages/index"><span class="shape1"></span><span
+                <a class="nav-link" href="/pengcab"><span class="shape1"></span><span
                         class="shape2"></span><i class="ti-home sidemenu-icon"></i><span
                         class="sidemenu-label">Pengurus Cabang</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/pages/index"><span class="shape1"></span><span
+                <a class="nav-link" href="/dojo"><span class="shape1"></span><span
                         class="shape2"></span><i class="ti-home sidemenu-icon"></i><span
                         class="sidemenu-label">Dojo</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/pages/index"><span class="shape1"></span><span
+                <a class="nav-link" href="/anggota"><span class="shape1"></span><span
                         class="shape2"></span><i class="ti-home sidemenu-icon"></i><span
                         class="sidemenu-label">Keanggotaan</span></a>
+            </li>
+            
+            <li class="nav-header"><span class="nav-label">Settings</span></li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user"><span class="shape1"></span><span
+                        class="shape2"></span><i class="ti-user sidemenu-icon"></i><span
+                        class="sidemenu-label">User</span></a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="/activity"><span class="shape1"></span><span
+                        class="shape2"></span><i class="ti-user sidemenu-icon"></i><span
+                        class="sidemenu-label">Activity Log</span></a>
+            </li>
+            {{-- <li class="nav-item">
                 <a class="nav-link" href="/pages/index"><span class="shape1"></span><span
                         class="shape2"></span><i class="ti-home sidemenu-icon"></i><span
-                        class="sidemenu-label">Keanggotaan</span></a>
-            </li>
+                        class="sidemenu-label"></span></a>
+            </li> --}}
             {{-- <li class="nav-item">
                 <a class="nav-link with-sub" href="#"><span class="shape1"></span><span
                         class="shape2"></span><i class="ti-layout sidemenu-icon"></i><span

@@ -5,11 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pengda extends Model
+class Activity extends Model
 {
     use HasFactory;
-
-    protected $table = 'pengda';
-
-    protected $guarded = ['id'];
 }

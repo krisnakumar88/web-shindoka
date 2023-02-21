@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DojoController;
 use App\Http\Controllers\PengcapController;
@@ -27,4 +28,4 @@ Route::resource('/pengcab', PengcapController::class);
 
 Route::resource('/dojo', DojoController::class);
 
-Route::resource('/anggota', PelangganController::class);
+Route::resource('/anggota', AnggotaController::class);

@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <meta name="description" content="Spruha - Codeigniter Admin & Dashboard Template">
+    <meta name="csrf" content="{{ csrf_token() }}">
     <meta name="author" content="Spruko Technologies Private Limited">
     <meta name="keywords"
         content="admin template, admin dashboard, bootstrap dashboard template, bootstrap 4 admin template, codeigniter 4 admin panel, template codeigniter bootstrap, php, codeigniter, php framework, web template, html5 template, php code, php html, codeigniter 4, codeigniter mvc">
@@ -46,6 +47,17 @@
 
     <!-- Mutipleselect css-->
     <link rel="stylesheet" href="{{ asset('/assets/plugins/multipleselect/multiple-select.css') }}">
+
+    {{-- Datatable --}}
+
+    <link href="{{ asset('/assets/plugins/datatable/dataTables.bootstrap4.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('/assets/plugins/datatable/responsivebootstrap4.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('/assets/plugins/datatable/fileexport/buttons.bootstrap4.min.css') }}" rel="stylesheet" />
+
+    {{-- SweetAlert --}}
+
+    <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/plugins/sweet-alert/sweetalert.css') }}" rel="stylesheet">
 
 </head>
 
