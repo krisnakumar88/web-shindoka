@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Pengcap extends Model
 {
     use HasFactory;
+
+    protected $table = 'pengcap';
+
+    protected $guarded = ['id'];
+
+    public function pengda(){
+        return $this->hasOne(Pengda::class, 'id', 'id_pengda');
+    }
 }

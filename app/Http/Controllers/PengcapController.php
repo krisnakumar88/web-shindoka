@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Pengcap;
 use App\Http\Requests\StorePengcapRequest;
 use App\Http\Requests\UpdatePengcapRequest;
+use App\Models\Pengda;
+use Exception;
 
 class PengcapController extends Controller
 {
@@ -15,7 +17,12 @@ class PengcapController extends Controller
      */
     public function index()
     {
-        //
+        return view('pengcap.index', [
+            'data' => Pengcap::all(),
+            'pengda' => Pengda::all()
+        ]);
+
+        
     }
 
     /**
@@ -36,7 +43,14 @@ class PengcapController extends Controller
      */
     public function store(StorePengcapRequest $request)
     {
-        //
+        $input = $request->all();
+        try {
+            Pengcap::create($input);
+
+            return redirect()->route('pengcab.index')->with('success', 'Data Berhasil Ditambahkan');
+        } catch (Exception $th) {
+            return redirect()->route('pengcab.index')->with('failed', 'Data Gagal Ditambahkan');
+        }
     }
 
     /**
@@ -70,7 +84,14 @@ class PengcapController extends Controller
      */
     public function update(UpdatePengcapRequest $request, Pengcap $pengcap)
     {
-        //
+        try {
+            Pengcap::where('id', $pengcap->id)
+                ->update($request);
+
+            return redirect()->route('pengcab.index')->with('success', 'Data Berhasil Diperbarui');
+        } catch (Exception $th) {
+            return redirect()->route('pengcab.index')->with('failed', 'Data Gagal Diperbarui');
+        }
     }
 
     /**
@@ -81,6 +102,12 @@ class PengcapController extends Controller
      */
     public function destroy(Pengcap $pengcap)
     {
-        //
+        try {
+            Pengcap::destroy($pengcap->id);
+
+            return redirect()->route('pengcab.index')->with('success', 'Data Berhasil Dihapus');
+        } catch (\Throwable $th) {
+            return redirect()->route('pengcab.index')->with('failed', 'Data Gagal Dihapus');
+        }
     }
 }

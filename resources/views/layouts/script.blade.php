@@ -63,4 +63,29 @@
 <script src="{{ asset('/assets/plugins/sweet-alert/sweetalert.min.js') }}"></script>
 <script src="{{ asset('/assets/plugins/sweet-alert/jquery.sweet-alert.js') }}"></script>
 
+<script src="{{ asset('/assets/plugins/jquery-ui/ui/widgets/datepicker.js') }}"></script>
+
+<!-- Internal Daternagepicker js-->
+<script src="{{ asset('/assets/plugins/bootstrap-daterangepicker/moment.min.js') }}"></script>
+<script src="{{ asset('/assets/plugins/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+
+<!-- Internal Fileuploads js-->
+<script src="{{ asset('/assets/plugins/fileuploads/js/fileupload.j') }}s"></script>
+<script src="{{ asset('/assets/plugins/fileuploads/js/file-upload.js') }}"></script>
+
+<!-- InternalFancy uploader js-->
+<script src="{{ asset('/assets/plugins/fancyuploder/jquery.ui.widget.js') }}"></script>
+<script src="{{ asset('/assets/plugins/fancyuploder/jquery.fileupload.js') }}"></script>
+<script src="{{ asset('/assets/plugins/fancyuploder/jquery.iframe-transport.js') }}"></script>
+<script src="{{ asset('/assets/plugins/fancyuploder/jquery.fancy-fileupload.js') }}"></script>
+<script src="{{ asset('/assets/plugins/fancyuploder/fancy-uploader.js') }}"></script>
+
+<!-- Internal Form-elements js-->
+<script src="{{ asset('/assets/js/advanced-form-elements.js') }}"></script>
+<script src="{{ asset('/assets/js/select2.js') }}"></script>
+
+<!-- Internal TelephoneInput js-->
+<script src="{{ asset('/assets/plugins/telephoneinput/telephoneinput.js') }}"></script>
+<script src="{{ asset('/assets/plugins/telephoneinput/inttelephoneinput.js') }}"></script>
+
 @yield('script')

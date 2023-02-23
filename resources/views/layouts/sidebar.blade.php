@@ -15,27 +15,27 @@
         <ul class="nav">
             <li class="nav-header"><span class="nav-label">Main Menu</span></li>
             <li class="nav-item">
-                <a class="nav-link" href="/dashboard"><span class="shape1"></span><span
+                <a class="nav-link" href="/"><span class="shape1"></span><span
                         class="shape2"></span><i class="ti-home sidemenu-icon"></i><span
                         class="sidemenu-label">Dashboard</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/pengda"><span class="shape1"></span><span
+                <a class="nav-link" href="{{ route('pengda.index') }}"><span class="shape1"></span><span
                         class="shape2"></span><i class="ti-home sidemenu-icon"></i><span
                         class="sidemenu-label">Pengurus Daerah</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/pengcab"><span class="shape1"></span><span
+                <a class="nav-link" href="{{ route('pengcab.index') }}"><span class="shape1"></span><span
                         class="shape2"></span><i class="ti-home sidemenu-icon"></i><span
                         class="sidemenu-label">Pengurus Cabang</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/dojo"><span class="shape1"></span><span
+                <a class="nav-link" href="{{ route('dojo.index') }}"><span class="shape1"></span><span
                         class="shape2"></span><i class="ti-home sidemenu-icon"></i><span
                         class="sidemenu-label">Dojo</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/anggota"><span class="shape1"></span><span
+                <a class="nav-link" href="{{ route('anggota.index') }}"><span class="shape1"></span><span
                         class="shape2"></span><i class="ti-home sidemenu-icon"></i><span
                         class="sidemenu-label">Keanggotaan</span></a>
             </li>

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Anggota;
-use App\Http\Requests\StoreAnggotaRequest;
-use App\Http\Requests\UpdateAnggotaRequest;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+use App\Models\User;
+use Illuminate\Http\Request;
 
-class AnggotaController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +16,7 @@ class AnggotaController extends Controller
      */
     public function index()
     {
-        return view('anggota.index', [
-            'data' => Anggota::all()
-        ]);
+        //
     }
 
     /**
@@ -33,10 +32,10 @@ class AnggotaController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreAnggotaRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreAnggotaRequest $request)
+    public function store(StoreUserRequest $request)
     {
         //
     }
@@ -44,10 +43,10 @@ class AnggotaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Anggota  $anggota
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Anggota $anggota)
+    public function show(User $user)
     {
         //
     }
@@ -55,10 +54,10 @@ class AnggotaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Anggota  $anggota
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(Anggota $anggota)
+    public function edit(User $user)
     {
         //
     }
@@ -66,11 +65,11 @@ class AnggotaController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateAnggotaRequest  $request
-     * @param  \App\Models\Anggota  $anggota
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAnggotaRequest $request, Anggota $anggota)
+    public function update(UpdateUserRequest $request, User $user)
     {
         //
     }
@@ -78,10 +77,10 @@ class AnggotaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Anggota  $anggota
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Anggota $anggota)
+    public function destroy(User $user)
     {
         //
     }

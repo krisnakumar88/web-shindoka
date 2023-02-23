@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Dojo;
 use App\Http\Requests\StoreDojoRequest;
 use App\Http\Requests\UpdateDojoRequest;
+use App\Models\Pengcap;
 
 class DojoController extends Controller
 {
@@ -15,7 +16,10 @@ class DojoController extends Controller
      */
     public function index()
     {
-        //
+        return view('dojo.index', [
+            'data' => Dojo::all(),
+            'pengcab' => Pengcap::all()
+        ]);
     }
 
     /**
@@ -36,7 +40,14 @@ class DojoController extends Controller
      */
     public function store(StoreDojoRequest $request)
     {
-        //
+        $input = $request->all();
+        try {
+            Dojo::create($input);
+
+            return redirect()->route('dojo.index')->with('success', 'Data Berhasil Ditambahkan');
+        } catch (\Exception $th) {
+            return redirect()->route('dojo.index')->with('failed', 'Data Gagal Ditambahkan');
+        }
     }
 
     /**
@@ -70,7 +81,14 @@ class DojoController extends Controller
      */
     public function update(UpdateDojoRequest $request, Dojo $dojo)
     {
-        //
+        try {
+            Dojo::where('id', $dojo->id)
+                ->update($request);
+
+            return redirect()->route('dojo.index')->with('success', 'Data Berhasil Diperbarui');
+        } catch (\Exception $th) {
+            return redirect()->route('dojo.index')->with('failed', 'Data Gagal Diperbarui');
+        }
     }
 
     /**
@@ -81,6 +99,12 @@ class DojoController extends Controller
      */
     public function destroy(Dojo $dojo)
     {
-        //
+        try {
+            Dojo::destroy($dojo->id);
+
+            return redirect()->route('dojo.index')->with('success', 'Data Berhasil Dihapus');
+        } catch (\Throwable $th) {
+            return redirect()->route('dojo.index')->with('failed', 'Data Gagal Dihapus');
+        }
     }
 }

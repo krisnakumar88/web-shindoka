@@ -12,31 +12,7 @@
                 <a href="/pages/index"><img src="{{ asset('/assets/img/brand/logo-light.png') }}"
                         class="mobile-logo-dark" alt="logo"></a>
             </div>
-            <div class="input-group">
-                <div class="input-group-btn search-panel">
-                    <select class="form-control select2-no-search">
-                        <option label="All categories">
-                        </option>
-                        <option value="IT Projects">
-                            IT Projects
-                        </option>
-                        <option value="Business Case">
-                            Business Case
-                        </option>
-                        <option value="Microsoft Project">
-                            Microsoft Project
-                        </option>
-                        <option value="Risk Management">
-                            Risk Management
-                        </option>
-                        <option value="Team Building">
-                            Team Building
-                        </option>
-                    </select>
-                </div>
-                <input type="search" class="form-control rounded-0" placeholder="Search for anything...">
-                <button class="btn search-btn"><i class="fe fe-search"></i></button>
-            </div>
+            
         </div>
         <div class="main-header-right">
             <div class="dropdown header-search">
