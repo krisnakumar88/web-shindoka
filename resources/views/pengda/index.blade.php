@@ -45,7 +45,7 @@
                                     <thead>
                                         <tr>
                                             <th class="wd-20p">Nama Pengurus Daerah</th>
-                                            <th class="wd-20p">Person In Charge</th>
+                                            <th class="wd-20p">Penanggung Jawab</th>
                                             <th class="wd-20p text-center">Alamat</th>
                                             <th class="wd-10p"></th>
                                         </tr>
@@ -115,7 +115,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="">Person In Charge</label>
+                                <label class="">Penanggung Jawab</label>
                                 <input class="form-control @error('pic') is-invalid @enderror" required type="text"
                                     name="pic" value="{{ old('pic') }}">
                                 @error('pic')
@@ -133,7 +133,7 @@
                                     </div>
                                 @enderror
                             </div>
-                            <button class="btn ripple btn-main-primary btn-block" id="submit">Submit</button>
+                            <button class="btn ripple btn-main-primary btn-block" id="submit">Simpan</button>
                         </form>
                     </div>
                 </div>
@@ -165,7 +165,7 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label class="">Person In Charge</label>
+                                    <label class="">Penanggung Jawab</label>
                                     <input class="form-control @error('pic') is-invalid @enderror" required type="text"
                                         name="pic" value="{{ old('pic', $item->pic) }}">
                                     @error('pic')
@@ -183,7 +183,7 @@
                                         </div>
                                     @enderror
                                 </div>
-                                <button class="btn ripple btn-main-primary btn-block" id="submit">Submit</button>
+                                <button class="btn ripple btn-main-primary btn-block" id="submit">Simpan</button>
                             </form>
                         </div>
                     </div>

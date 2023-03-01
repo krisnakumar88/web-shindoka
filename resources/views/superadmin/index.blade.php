@@ -4,10 +4,10 @@
     <!-- Page Header -->
     <div class="page-header">
         <div>
-            <h2 class="main-content-title tx-24 mg-b-5">Anggota</h2>
+            <h2 class="main-content-title tx-24 mg-b-5">Superadmin</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Anggota</li>
+                <li class="breadcrumb-item active" aria-current="page">Superadmin</li>
             </ol>
         </div>
         <div class="d-flex">
@@ -45,11 +45,8 @@
                                     <thead>
                                         <tr>
                                             <th class="wd-20p">Nama</th>
-                                            {{-- <th class="wd-20p text-center">Alamat</th> --}}
-                                            <th class="wd-20p">No Hp</th>
-                                            <th class="wd-20p">Tahun Masuk</th>
-                                            <th class="wd-20p">Sabut Terakhir</th>
-
+                                            <th class="wd-20p">Username</th>
+                                            <th class="wd-20p">Email</th>
                                             <th class="wd-10p"></th>
                                         </tr>
                                     </thead>
@@ -57,10 +54,10 @@
                                         @foreach ($data as $item)
                                             <tr>
 
-                                                <td class="">{{ $item->user->name }}</td>
-                                                <td>{{ $item->no_hp }}<i class=""></i></td>
-                                                <td>{{ $item->tahun_masuk }}</td>
-                                                <td>{{ $item->sabut_terakhir }}</td>
+                                                <td class="">{{ $item->name }}</td>
+                                                <td>{{ $item->username }}<i class=""></i></td>
+                                                <td>{{ $item->email }}</td>
+                                                
 
                                                 <td class="text-center">
                                                     <div class="btn btn-list">
@@ -69,7 +66,7 @@
                                                             <i class="icon ion-ios-arrow-down tx-11 mg-l-3"></i></button>
                                                         <div class="dropdown-menu">
                                                             <a href="" class="dropdown-item">Detail</a>
-                                                            <form action="{{ route('pengcab.destroy', $item->id) }}"
+                                                            <form action="{{ route('superadmin.destroy', $item->id) }}"
                                                                 method="post" class="form-delete">
                                                                 @csrf
                                                                 <input type="hidden" name="_method" value="DELETE">
@@ -110,10 +107,10 @@
                         type="button"><span aria-hidden="true">&times;</span></button>
                     <h5 class="modal-title mb-4 text-center">Tambah Anggota</h5>
                     <div class="">
-                        <form action="{{ route('anggota.store') }}" method="post">
+                        <form action="{{ route('superadmin.store') }}" method="post">
                             @csrf
                             <div class="form-group">
-                                <label class="">Nama Anggota</label>
+                                <label class="">Nama Superadmin</label>
                                 <input class="form-control @error('name') is-invalid @enderror" required type="text"
                                     name="name" value="{{ old('name') }}">
                                 @error('name')
@@ -152,71 +149,7 @@
                                     </div>
                                 @enderror
                             </div>
-                            <div class="form-group">
-                                <label class="">No HP</label>
-                                <input class="form-control @error('no_hp') is-invalid @enderror" required type="text"
-                                    name="no_hp" value="{{ old('no_hp') }}">
-                                @error('no_hp')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label class="">Alamat</label>
-                                <textarea class="form-control @error('lokasi') is-invalid @enderror" name="lokasi" cols="5" rows="5">{{ old('lokasi') }}</textarea>
-                                @error('lokasi')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label class="">Tahun Masuk</label>
-                                <input class="form-control @error('tahun_masuk') is-invalid @enderror" required
-                                    type="number" name="tahun_masuk" value="{{ old('tahun_masuk') }}">
-                                @error('tahun_masuk')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label class="">Sabut Terakhir</label>
-                                <select class="form-control select2 @error('sabut') is-invalid @enderror"
-                                    name="sabut_terakhir">
-                                    <option label="Choose one">
-                                    </option>
-                                    <option value="none">
-                                        None
-                                    </option>
-                                </select>
-                                @error('id_pengda')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label class="">Prestasi</label>
-                                <textarea class="form-control @error('prestasi') is-invalid @enderror" name="prestasi" cols="5"
-                                    rows="5">{{ old('prestasi') }}</textarea>
-                                @error('prestasi')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label class="">Foto</label>
-                                <input type="file" class="dropify" name="foto" data-default-file=""
-                                    data-height="200" />
-                                @error('prestasi')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
+                            
 
                     </div>
 
@@ -235,15 +168,15 @@
                     <div class="modal-body pd-20 pd-sm-40">
                         <button aria-label="Close" class="close pos-absolute t-15 r-20 tx-26" data-dismiss="modal"
                             type="button"><span aria-hidden="true">&times;</span></button>
-                        <h5 class="modal-title mb-4 text-center">Update Pengurus Cabang</h5>
+                        <h5 class="modal-title mb-4 text-center">Update Superadmin</h5>
                         <div class="">
-                            <form action="{{ route('anggota.update', $item->id) }}" method="post">
-                                @csrf
+                            <form action="{{ route('superadmin.update', $item->id) }}" method="post">
                                 <input type="hidden" name="_method" value="PUT">
+                                @csrf
                                 <div class="form-group">
-                                    <label class="">Nama Anggota</label>
+                                    <label class="">Nama Superadmin</label>
                                     <input class="form-control @error('name') is-invalid @enderror" required type="text"
-                                        name="name" value="{{ old('name', $item->nama) }}">
+                                        name="name" value="{{ old('name', $item->name) }}">
                                     @error('name')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -253,7 +186,7 @@
                                 <div class="form-group">
                                     <label class="">Email</label>
                                     <input class="form-control @error('email') is-invalid @enderror" required type="email"
-                                        name="email" value="{{ old('email', $item->user->email) }}">
+                                        name="email" value="{{ old('email', $item->email) }}">
                                     @error('email')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -263,7 +196,7 @@
                                 <div class="form-group">
                                     <label class="">Username</label>
                                     <input class="form-control @error('username') is-invalid @enderror" required type="text"
-                                        name="username" value="{{ old('username', $item->user->username) }}">
+                                        name="username" value="{{ old('username', $item->username) }}">
                                     @error('username')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -272,7 +205,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="">Password</label>
-                                    <input class="form-control @error('password') is-invalid @enderror" required type="password"
+                                    <input class="form-control @error('password') is-invalid @enderror" type="password"
                                         name="password" value="{{ old('password') }}">
                                     @error('password')
                                         <div class="invalid-feedback">
@@ -280,74 +213,9 @@
                                         </div>
                                     @enderror
                                 </div>
-                                <div class="form-group">
-                                    <label class="">No HP</label>
-                                    <input class="form-control @error('no_hp') is-invalid @enderror" required type="text"
-                                        name="no_hp" value="{{ old('no_hp', $item->no_hp) }}">
-                                    @error('no_hp')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label class="">Alamat</label>
-                                    <textarea class="form-control @error('lokasi') is-invalid @enderror" name="lokasi" cols="5" rows="5">{{ old('lokasi', $item->alamat) }}</textarea>
-                                    @error('lokasi')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label class="">Tahun Masuk</label>
-                                    <input class="form-control @error('tahun_masuk') is-invalid @enderror" required
-                                        type="number" name="tahun_masuk" value="{{ old('tahun_masuk', $item->tahun_masuk) }}">
-                                    @error('tahun_masuk')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label class="">Sabut Terakhir</label>
-                                    <select class="form-control select2 @error('sabut') is-invalid @enderror"
-                                        name="sabut_terakhir">
-                                        <option label="Choose one">
-                                        </option>
-                                        
-                                        <option value="none" @if ($item->sabut_terakhir === "none")
-                                            selected
-                                        @endif >
-                                            None
-                                        </option>
-                                    </select>
-                                    @error('id_pengda')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label class="">Prestasi</label>
-                                    <textarea class="form-control @error('prestasi') is-invalid @enderror" name="prestasi" cols="5"
-                                        rows="5">{{ old('prestasi', $item->prestasi) }}</textarea>
-                                    @error('prestasi')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label class="">Foto</label>
-                                    <input type="file" class="dropify" name="foto" data-default-file=""
-                                        data-height="200" />
-                                    @error('prestasi')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
+                                
+                                
+                                
     
                         </div>
     

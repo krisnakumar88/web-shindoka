@@ -25,6 +25,17 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('isSuperadmin', function ($user) {
+            return $user->role == 'superadmin';
+        });
+
+        Gate::define('isAdmin', function ($user) {
+            return $user->role == 'admin';
+        });
+
+        Gate::define('isAnggota', function ($user) {
+            return $user->role == 'anggota';
+        });
+
     }
 }

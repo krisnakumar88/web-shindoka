@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\AdminDetail;
 use App\Http\Requests\StoreAdminDetailRequest;
 use App\Http\Requests\UpdateAdminDetailRequest;
+use App\Models\Dojo;
+use App\Models\User;
 
-class AdminDetailController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +17,10 @@ class AdminDetailController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.index', [
+            'data' => AdminDetail::all(),
+            'dojo' => Dojo::all()
+        ]);
     }
 
     /**

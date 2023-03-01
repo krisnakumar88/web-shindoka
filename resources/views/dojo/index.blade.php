@@ -45,7 +45,7 @@
                                     <thead>
                                         <tr>
                                             <th class="wd-20p">Nama Dojo</th>
-                                            <th class="wd-20p">Person In Charge</th>
+                                            <th class="wd-20p">Penanggung Jawab</th>
                                             <th class="wd-20p text-center">Alamat</th>
                                             <th class="wd-20p">Pengurus Cabang</th>
                                             <th class="wd-10p"></th>
@@ -137,7 +137,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="">Person In Charge</label>
+                                <label class="">Penanggung Jawab</label>
                                 <input class="form-control @error('pic') is-invalid @enderror" required type="text"
                                     name="pic" value="{{ old('pic') }}">
                                 @error('pic')
@@ -156,7 +156,7 @@
                                 @enderror
                             </div>
 
-                            <button class="btn ripple btn-main-primary btn-block" id="submit">Submit</button>
+                            <button class="btn ripple btn-main-primary btn-block" id="submit">Simpan</button>
                         </form>
                     </div>
                 </div>
@@ -193,7 +193,7 @@
                                         name="id_pengda">
                                         <option label="Choose one">
                                         </option>
-                                        @foreach ($pengcap as $cabang)
+                                        @foreach ($pengcab as $cabang)
                                             @if ($item->pengcap->id == $cabang->id)
                                                 <option  selected value="{{ $cabang->id }}">
                                                     {{ $cabang->nama_pengda }}
@@ -212,7 +212,7 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label class="">Person In Charge</label>
+                                    <label class="">Penanggung Jawab</label>
                                     <input class="form-control @error('pic') is-invalid @enderror" required type="text"
                                         name="pic" value="{{ old('pic', $item->pic) }}">
                                     @error('pic')
@@ -230,7 +230,7 @@
                                         </div>
                                     @enderror
                                 </div>
-                                <button class="btn ripple btn-main-primary btn-block" id="submit">Submit</button>
+                                <button class="btn ripple btn-main-primary btn-block" id="submit">Simpan</button>
                             </form>
                         </div>
                     </div>
