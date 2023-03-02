@@ -65,7 +65,7 @@
                                                         <button class="btn ripple btn-primary" data-toggle="dropdown">Action
                                                             <i class="icon ion-ios-arrow-down tx-11 mg-l-3"></i></button>
                                                         <div class="dropdown-menu">
-                                                            <a href="" class="dropdown-item">Detail</a>
+                                                            
                                                             <form action="{{ route('superadmin.destroy', $item->id) }}"
                                                                 method="post" class="form-delete">
                                                                 @csrf

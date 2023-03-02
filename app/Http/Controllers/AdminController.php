@@ -7,6 +7,8 @@ use App\Http\Requests\StoreAdminDetailRequest;
 use App\Http\Requests\UpdateAdminDetailRequest;
 use App\Models\Dojo;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -41,7 +43,28 @@ class AdminController extends Controller
      */
     public function store(StoreAdminDetailRequest $request)
     {
-        //
+        $input = $request->all();
+
+        try {
+            $user =  User::create([
+                'name'     => $input['name'],
+                'email'    => $input['email'],
+                'username' => $input['username'],
+                'password' => Hash::make($input['password']),
+                'role' => 'admin'
+            ]);
+
+            $admin = AdminDetail::create([
+                'id_user' => $user->id,
+                'no_hp'   => $input['no_hp'],
+                'id_dojo' => $input['id_dojo']
+            ]);
+
+
+            return redirect()->route('admin.index')->with('success', 'Data Berhasil Ditambahkan');
+        } catch (\Throwable $th) {
+            return redirect()->route('admin.index')->with('failed', 'Data Berhasil Ditambahkan');
+        }
     }
 
     /**
@@ -73,9 +96,45 @@ class AdminController extends Controller
      * @param  \App\Models\AdminDetail  $adminDetail
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAdminDetailRequest $request, AdminDetail $adminDetail)
+    public function update(Request $request, $adminDetail)
     {
-        //
+
+        $admin = AdminDetail::where('id', $adminDetail)->first();
+
+        $user  = User::where('id', $admin->id_user)->first();
+
+        $rules = [
+            'name'  => 'required|min:3|max:255',
+            'email' => 'required|email:dns'
+        ];
+
+        if ($request->password != "") {
+            $rules['password'] = 'required|min:3';
+        }
+
+        if ($request->username != $user->username) {
+            $rules['username'] = 'required|unique:users';
+        }
+
+        $validate = $request->validate($rules);
+
+        if ($request->password != "") {
+            $validate['password'] = Hash::make($validate['password']);
+        }
+
+        try {
+            User::where('id', $admin->id_user)
+                ->update($validate);
+
+            AdminDetail::where('id', $admin->id)->update([
+                'no_hp'   => $request->no_hp,
+                'id_dojo' => $request->id_dojo
+            ]);
+
+            return redirect()->route('admin.index')->with('success', 'Data Berhasil Diubah');
+        } catch (\Throwable $th) {
+            return redirect()->route('admin.index')->with('failed', 'Data Gagal Diubah');
+        }
     }
 
     /**
@@ -84,8 +143,27 @@ class AdminController extends Controller
      * @param  \App\Models\AdminDetail  $adminDetail
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AdminDetail $adminDetail)
+    public function destroy($adminDetail)
     {
-        //
+        $admin = AdminDetail::where('id', $adminDetail)->first();
+
+        try {
+            AdminDetail::where('id', $admin->id)->delete();
+
+            User::where('id', $admin->id_user)->delete();
+
+
+            return redirect()->route('admin.index')->with('success', 'Data Berhasil Dihapus');
+        } catch (\Throwable $th) {
+            return redirect()->route('admin.index')->with('failed', 'Data Gagal Dihapus');
+        }
+
+
+
+        //     return redirect()->route('admin.index')->with('success', 'Data Berhasil Dihapus');
+        // } catch (\Throwable $th) {
+        //     return redirect()->route('admin.index')->with('failed', 'Data Gagal DiHapus');
+        // }
+
     }
 }

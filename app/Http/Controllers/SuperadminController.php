@@ -52,10 +52,6 @@ class SuperadminController extends Controller
 
         $user = User::create($dataUser);
 
-        if (!$user) {
-            return redirect()->route('superadmin.index')->with('failed', 'Data User Gagal Ditambahkan');
-        }
-
         return redirect()->route('superadmin.index')->with('success', 'Data Berhasil Ditambahkan');
     }
 

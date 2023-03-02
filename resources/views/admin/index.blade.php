@@ -67,7 +67,7 @@
                                                         <button class="btn ripple btn-primary" data-toggle="dropdown">Action
                                                             <i class="icon ion-ios-arrow-down tx-11 mg-l-3"></i></button>
                                                         <div class="dropdown-menu">
-                                                            <a href="" class="dropdown-item">Detail</a>
+                                                        
                                                             <form action="{{ route('admin.destroy', $item->id) }}"
                                                                 method="post" class="form-delete">
                                                                 @csrf
@@ -107,7 +107,7 @@
                 <div class="modal-body pd-20 pd-sm-40">
                     <button aria-label="Close" class="close pos-absolute t-15 r-20 tx-26" data-dismiss="modal"
                         type="button"><span aria-hidden="true">&times;</span></button>
-                    <h5 class="modal-title mb-4 text-center">Tambah Anggota</h5>
+                    <h5 class="modal-title mb-4 text-center">Tambah Admin</h5>
                     <div class="">
                         <form action="{{ route('admin.store') }}" method="post">
                             @csrf
@@ -168,6 +168,15 @@
                                     </div>
                                 @enderror
                             </div>
+                            <div class="form-group">
+                                <label class="">No. Hp</label>
+                                    <input type="tel" name="no_hp" class="form-control" id="mobile-number" placeholder="e.g. +1 702 123 4567">
+                                @error('no_hp')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
 
 
                     </div>
@@ -193,9 +202,9 @@
                                 <input type="hidden" name="_method" value="PUT">
                                 @csrf
                                 <div class="form-group">
-                                    <label class="">Nama Superadmin</label>
+                                    <label class="">Nama Admin</label>
                                     <input class="form-control @error('name') is-invalid @enderror" required
-                                        type="text" name="name" value="{{ old('name', $item->name) }}">
+                                        type="text" name="name" value="{{ old('name', $item->user->name) }}">
                                     @error('name')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -205,7 +214,7 @@
                                 <div class="form-group">
                                     <label class="">Email</label>
                                     <input class="form-control @error('email') is-invalid @enderror" required
-                                        type="email" name="email" value="{{ old('email', $item->email) }}">
+                                        type="email" name="email" value="{{ old('email', $item->user->email) }}">
                                     @error('email')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -215,7 +224,7 @@
                                 <div class="form-group">
                                     <label class="">Username</label>
                                     <input class="form-control @error('username') is-invalid @enderror" required
-                                        type="text" name="username" value="{{ old('username', $item->username) }}">
+                                        type="text" name="username" value="{{ old('username', $item->user->username) }}">
                                     @error('username')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -238,19 +247,28 @@
                                         name="id_dojo">
                                         <option label="Choose one">
                                         </option>
-                                        @foreach ($dojo as $item)
-                                            @if ($item->dojo->id == $item->id_dojo)
-                                                <option selected value="{{ $dojo->id }}">
-                                                    {{ $dojo->nama_dojo }}
+                                        @foreach ($dojo as $doji)
+                                            @if ($doji->id == $item->id_dojo)
+                                                <option selected value="{{ $doji->id }}">
+                                                    {{ $doji->nama_dojo }}
                                                 </option>
                                             @else
-                                                <option value="{{ $dojo->id }}">
-                                                    {{ $cabang->nama_dojo }}
+                                                <option value="{{ $doji->id }}">
+                                                    {{ $doji->nama_dojo }}
                                                 </option>
                                             @endif
                                         @endforeach
                                     </select>
                                     @error('id_dojo')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label class="">No. Hp</label>
+                                        <input type="tel" name="no_hp" class="form-control" id="mobile-number" placeholder="" value="{{ old('no_hp', $item->no_hp) }}">
+                                    @error('no_hp')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>

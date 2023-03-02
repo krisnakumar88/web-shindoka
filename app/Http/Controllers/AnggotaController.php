@@ -70,10 +70,6 @@ class AnggotaController extends Controller
 
         $user = User::create($dataUser);
 
-        if (!$user) {
-            return redirect()->route('anggota.index')->with('failed', 'Data User Gagal Ditambahkan');
-        }
-
         $dataAnggota['id_user'] = $user->id;
 
         $type = $request->file->getClientMimeType();
@@ -91,9 +87,6 @@ class AnggotaController extends Controller
 
         $anggota = Anggota::create($dataAnggota);
 
-        if (!$anggota) {
-            return redirect()->route('anggota.index')->with('failed', 'Data Anggota Gagal Ditambahkan');
-        }
 
         return redirect()->route('anggota.index')->with('success', 'Data Berhasil Ditambahkan');
     }
