@@ -68,8 +68,8 @@
                                                         <button class="btn ripple btn-primary" data-toggle="dropdown">Action
                                                             <i class="icon ion-ios-arrow-down tx-11 mg-l-3"></i></button>
                                                         <div class="dropdown-menu">
-                                                            <a href="" class="dropdown-item">Detail</a>
-                                                            <form action="{{ route('pengcab.destroy', $item->id) }}"
+                                                            {{-- <a href="" class="dropdown-item">Detail</a> --}}
+                                                            <form action="{{ route('anggota.destroy', $item->id) }}"
                                                                 method="post" class="form-delete">
                                                                 @csrf
                                                                 <input type="hidden" name="_method" value="DELETE">
@@ -110,7 +110,7 @@
                         type="button"><span aria-hidden="true">&times;</span></button>
                     <h5 class="modal-title mb-4 text-center">Tambah Anggota</h5>
                     <div class="">
-                        <form action="{{ route('anggota.store') }}" method="post">
+                        <form action="{{ route('anggota.store') }}" method="post" enctype='multipart/form-data'>
                             @csrf
                             <div class="form-group">
                                 <label class="">Nama Anggota</label>
@@ -154,8 +154,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="">No HP</label>
-                                <input class="form-control @error('no_hp') is-invalid @enderror" required type="text"
-                                    name="no_hp" value="{{ old('no_hp') }}">
+                                    <input type="tel" name="no_hp" class="form-control" id="mobile-number" placeholder="e.g. +1 702 123 4567">
                                 @error('no_hp')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -237,9 +236,9 @@
                             type="button"><span aria-hidden="true">&times;</span></button>
                         <h5 class="modal-title mb-4 text-center">Update Pengurus Cabang</h5>
                         <div class="">
-                            <form action="{{ route('anggota.update', $item->id) }}" method="post">
+                            <form action="{{ route('anggota.update', $item->id) }}" method="post" enctype='multipart/form-data'>
                                 @csrf
-                                <input type="hidden" name="_method" value="PUT">
+                                <input type="hidden" name="_method" value="PUT" >
                                 <div class="form-group">
                                     <label class="">Nama Anggota</label>
                                     <input class="form-control @error('name') is-invalid @enderror" required type="text"
@@ -272,7 +271,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="">Password</label>
-                                    <input class="form-control @error('password') is-invalid @enderror" required type="password"
+                                    <input class="form-control @error('password') is-invalid @enderror" type="password"
                                         name="password" value="{{ old('password') }}">
                                     @error('password')
                                         <div class="invalid-feedback">
@@ -282,8 +281,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="">No HP</label>
-                                    <input class="form-control @error('no_hp') is-invalid @enderror" required type="text"
-                                        name="no_hp" value="{{ old('no_hp', $item->no_hp) }}">
+                                        <input type="tel" name="no_hp" class="form-control" id="mobile-number" value="{{ old('no_hp', $item->no_hp) }}" placeholder="e.g. +1 702 123 4567">
                                     @error('no_hp')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -340,7 +338,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="">Foto</label>
-                                    <input type="file" class="dropify" name="foto" data-default-file=""
+                                    <input type="file" class="dropify" name="foto" data-default-file="/file/{{ $item->file->name }}"
                                         data-height="200" />
                                     @error('prestasi')
                                         <div class="invalid-feedback">
@@ -387,7 +385,7 @@
         <script>
             $(document).ready(function() {
                 setTimeout(() => {
-                    swal("Gagal", "{{ session('failed') }}", "danger");
+                    swal("Gagal", "{{ session('failed') }}", "warning");
                 }, 1000);
 
             });

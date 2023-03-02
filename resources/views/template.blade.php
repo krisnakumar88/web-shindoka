@@ -13,11 +13,11 @@
 
     <!-- Favicon -->
     <link rel="icon"
-        href="https://codeigniter.spruko.com/spruha/spruha-ltr{{ asset('/assets/img/brand/favicon.ico') }}"
+        href="{{ public_path() . 'favicon.ico' }}"
         type="image/x-icon" />
 
     <!-- Title -->
-    <title>Spruha - Codeigniter Admin & Dashboard Template</title>
+    <title>Sistem Pengelolaan Keanggotaan Shindoka</title>
 
     <!-- Bootstrap css-->
     <link href="{{ asset('/assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />

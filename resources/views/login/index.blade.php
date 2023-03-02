@@ -17,7 +17,7 @@
         type="image/x-icon" />
 
     <!-- Title -->
-    <title>Spruha - Codeigniter Admin & Dashboard Template</title>
+    <title>Sistem Pengelolaan Keanggotaan Shindoka</title>
 
     <!-- Bootstrap css-->
     <link href="{{ asset('/assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
@@ -93,13 +93,11 @@
                     <div class="row row-sm">
                         <div class="col-lg-6 col-xl-5 d-none d-lg-block text-center bg-primary details">
                             <div class="mt-5 pt-4 p-2 pos-absolute">
-                                <img src="{{ asset('/assets/img/brand/logo-light.png') }}"
-                                    class="header-brand-img mb-4" alt="logo">
+                                <br>
                                 <div class="clearfix"></div>
-                                <img src="{{ asset('/assets/img/svgs/user.svg') }}" class="ht-100 mb-0" alt="user">
-                                <h5 class="mt-4 text-white">Create Your Account</h5>
-                                <span class="tx-white-6 tx-13 mb-5 mt-xl-0">Signup to create, discover and connect with
-                                    the global community</span>
+                                <img src="{{ asset('/file/shindoka-logo.png') }}" class="ht-100 mb-0" alt="user">
+                                <h5 class="mt-4 text-white">Sistem Pengelolaan Keanggotaan Shindoka</h5>
+                                <span class="tx-white-6 tx-13 mb-5 mt-xl-0"></span>
                             </div>
                         </div>
                         <div class="col-lg-6 col-xl-7 col-xs-12 col-sm-12 login_form ">

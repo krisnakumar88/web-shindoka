@@ -42,9 +42,16 @@ class AnggotaController extends Controller
      */
     public function store(Request $request)
     {
+
+        // dd($request);
         $dataFile = $request->validate([
             'foto' => 'required|file|mimes:jpg,jpeg,bmp,png'
         ]);
+
+        $type = $request->foto->getClientMimeType();
+        $size = $request->foto->getSize();
+
+        $fileName = time() . '-' . $request->foto->getClientOriginalName();
 
 
         $dataUser = $request->validate([
@@ -68,27 +75,28 @@ class AnggotaController extends Controller
 
         $dataUser['role'] = "anggota";
 
-        $user = User::create($dataUser);
+        try {
 
-        $dataAnggota['id_user'] = $user->id;
+            $user = User::create($dataUser);
 
-        $type = $request->file->getClientMimeType();
-        $size = $request->file->getSize();
+            $dataAnggota['id_user'] = $user->id;
 
-        $fileName = time().'_'.$request->file->extension();
+            $request->foto->move(public_path('/file/'), $fileName);
 
-        $file = File::create([
-            'name' => $fileName,
-            'type' => $type,
-            'size' => $size
-        ]);
+            $file = File::create([
+                'name' => $fileName,
+                'type' => $type,
+                'size' => $size
+            ]);
 
-        $dataAnggota['foto'] = $file->id;
+            $dataAnggota['foto'] = $file->id;
 
-        $anggota = Anggota::create($dataAnggota);
+            $anggota = Anggota::create($dataAnggota);
 
-
-        return redirect()->route('anggota.index')->with('success', 'Data Berhasil Ditambahkan');
+            return redirect()->route('anggota.index')->with('success', 'Data Berhasil Ditambahkan');
+        } catch (\Throwable $th) {
+            return redirect()->route('anggota.index')->with('failed', 'Data Gagal Ditambahkan');
+        }
     }
 
     /**
@@ -120,10 +128,53 @@ class AnggotaController extends Controller
      * @param  \App\Models\Anggota  $anggota
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Anggota $anggota)
+    public function update(Request $request, $anggota)
     {
 
+        $anggota = Anggota::where('id', $anggota)->first();
+
         $user = User::where('id', $anggota->id_user)->first();
+
+        $file = File::where('id', $anggota->foto)->first();
+
+        
+
+        $dataAnggota = [
+            'nama'           => $request->input('name'),
+            'alamat'         => $request->input('lokasi'),
+            'no_hp'          => $request->input('no_hp'),
+            'tahun_masuk'    => $request->input('tahun_masuk'),
+            'sabut_terakhir' => $request->input('sabut_terakhir'),
+            'prestasi'       => $request->input('prestasi'),
+        ];
+
+        if ($request->foto != null || $request->foto != "") {
+
+            $dataFile = $request->validate([
+                'foto' => 'required|file|mimes:jpg,jpeg,bmp,png'
+            ]);
+
+            $type = $request->foto->getClientMimeType();
+            $size = $request->foto->getSize();
+
+            try {
+
+                unlink(public_path('/file/' .$file->name));
+
+                $fileName = time() . '-' . $request->foto->getClientOriginalName();
+
+                $request->foto->move(public_path('/file/'), $fileName);
+
+                $file = File::where('id', $anggota->foto)->update([
+                    'name' => $fileName,
+                    'type' => $type,
+                    'size' => $size
+                ]);
+
+            } catch (\Throwable $th) {
+                return redirect()->route('anggota.index')->with('failed', 'Data Foto Gagal Diupdate');
+            }
+        }
 
         $rules = [
             'name'  => 'required|min:3|max:255',
@@ -131,7 +182,7 @@ class AnggotaController extends Controller
         ];
 
         if ($request->password != "") {
-            $rules['password'] = 'required|unique:users|min:3';   
+            $rules['password'] = 'required|unique:users|min:3';
         }
 
         if ($request->username != $user->username) {
@@ -141,28 +192,18 @@ class AnggotaController extends Controller
         $validate = $request->validate($rules);
 
         if ($request->password != "") {
-            $validate['password'] = bcrypt($validate['password']);   
+            $validate['password'] = Hash::make($validate['password']);
         }
 
-        $dataAnggota = [
-            'nama'           => $request->input('name'),
-            'alamat'         => $request->input('lokasi'),
-            'no_hp'          => $request->input('no_hp'),
-            'tahun_masuk'    => $request->input('tahun_masuk'),
-            'sabut_terakhir' => $request->input('sabut_terakhir'),
-            'prestasi'       => $request->input('prestasi'),
-            'foto'           => '',
-        ];
 
         try {
             User::where('id', $user->id)
-            ->update($validate);
+                ->update($validate);
 
             Anggota::where('id', $anggota->id)
-            ->update($dataAnggota);
+                ->update($dataAnggota);
 
-            return redirect()->route('anggota.index')->with('success', 'Data Berhasil Dihapus');
-            
+            return redirect()->route('anggota.index')->with('success', 'Data Berhasil Diupdate');
         } catch (Exception $th) {
             return redirect()->route('anggota.index')->with('failed', 'Data Gagal Diupdate');
         }
@@ -174,11 +215,19 @@ class AnggotaController extends Controller
      * @param  \App\Models\Anggota  $anggota
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Anggota $anggota)
+    public function destroy($anggota)
     {
+        $anggota = Anggota::where('id', $anggota)->first();
+
+        $foto = File::where('id', $$anggota->foto)->first();
+
         try {
 
+            unlink(public_path('file/' .$foto->name));
+
             User::where('id', $anggota->id_user)->delete();
+
+            File::where('id', $anggota->foto)->delete();
 
             Anggota::destroy($anggota->id);
 

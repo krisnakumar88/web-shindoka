@@ -16,4 +16,8 @@ class Anggota extends Model
     public function user(){
         return $this->hasOne(User::class, 'id', 'id_user');
     }
+
+    public function file(){
+        return $this->hasOne(File::class, 'id', 'foto');
+    }
 }

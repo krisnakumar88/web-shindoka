@@ -22,7 +22,7 @@
                     data-toggle="modal">
                     <i class="fe fe-upload mr-2"></i> Tambah
                 </button>
-            </div>
+            </div>  
         </div>
     </div>
     <!-- End Page Header -->
