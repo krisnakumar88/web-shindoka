@@ -53,6 +53,7 @@ class AnggotaController extends Controller
      */
     public function store(Request $request)
     {
+        
 
         // dd($request);
         $dataFile = $request->validate([
@@ -83,13 +84,15 @@ class AnggotaController extends Controller
             'id_dojo'        => $request->input('id_dojo'),
         ];
 
+        
+
         $dataUser['password'] = Hash::make($dataUser['password']);
 
         $dataUser['role'] = "anggota";
 
         try {
 
-            $user = User::create($dataUser);
+            $user = User::FirstOrCreate($dataUser);
 
             $dataAnggota['id_user'] = $user->id;
 
@@ -107,7 +110,7 @@ class AnggotaController extends Controller
 
             return redirect()->route('anggota.index')->with('success', 'Data Berhasil Ditambahkan');
         } catch (\Throwable $th) {
-            return redirect()->route('anggota.index')->with('failed', 'Data Gagal Ditambahkan');
+            return redirect()->route('anggota.index')->with('failed', 'Data Gagal Ditambahkan, ' . $th->getMessage());
         }
     }
 

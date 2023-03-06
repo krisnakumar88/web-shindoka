@@ -213,7 +213,7 @@
                                 <div class="form-group">
                                     <label class="">Dojo</label>
                                     <select class="form-control select2 @error('id_dojo') is-invalid @enderror"
-                                        name="id_dojo" disabled>
+                                        name="id_dojo" readonly>
                                         <option label="Choose one">
                                         </option>
                                         @foreach ($dojo as $item)
@@ -243,7 +243,7 @@
                                             </option>
                                         @endforeach
                                     </select>
-                                    @error('id_pengda')
+                                    @error('id_dojo')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
