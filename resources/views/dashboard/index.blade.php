@@ -478,7 +478,7 @@
                 </div>
             </div>
         </div>
-    @else
+    @elsecan('isSuperadmin')
         <div class="row row-sm">
             <div class="col-sm-12 col-lg-12 col-xl-12">
 
@@ -828,6 +828,8 @@
             </div><!-- col end -->
 
         </div>
+    @else
+    
     @endcan
     <!--Row-->
     <!-- Row end -->
