@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AdminDetail;
 use App\Http\Requests\StoreAdminDetailRequest;
 use App\Http\Requests\UpdateAdminDetailRequest;
+use App\Models\Anggota;
 use App\Models\Dojo;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -116,6 +117,10 @@ class AdminController extends Controller
             $rules['username'] = 'required|unique:users';
         }
 
+        if (!$request->has('id_dojo')) {
+            $request->id_dojo = $admin->id_dojo;
+        }
+
         $validate = $request->validate($rules);
 
         if ($request->password != "") {
@@ -131,9 +136,9 @@ class AdminController extends Controller
                 'id_dojo' => $request->id_dojo
             ]);
 
-            return redirect()->route('admin.index')->with('success', 'Data Berhasil Diubah');
+            return redirect()->back()->with('success', 'Data Berhasil Diubah');
         } catch (\Throwable $th) {
-            return redirect()->route('admin.index')->with('failed', 'Data Gagal Diubah');
+            return redirect()->back()->with('failed', 'Data Gagal Diubah');
         }
     }
 
@@ -147,11 +152,15 @@ class AdminController extends Controller
     {
         $admin = AdminDetail::where('id', $adminDetail)->first();
 
+        $anggota = Anggota::where('bring_by', $admin->id)->count();
+        if ($anggota > 0) {
+            return redirect()->route('admin.index')->with('failed', 'Data Ini Terhubung Dengan Data Lain');
+        }
+
         try {
             AdminDetail::where('id', $admin->id)->delete();
 
             User::where('id', $admin->id_user)->delete();
-
 
             return redirect()->route('admin.index')->with('success', 'Data Berhasil Dihapus');
         } catch (\Throwable $th) {

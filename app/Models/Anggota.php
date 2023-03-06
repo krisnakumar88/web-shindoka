@@ -20,4 +20,9 @@ class Anggota extends Model
     public function file(){
         return $this->hasOne(File::class, 'id', 'foto');
     }
+
+    public function dojo()
+    {
+        return $this->hasOne(Dojo::class, 'id', 'id_dojo');
+    }
 }

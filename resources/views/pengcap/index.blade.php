@@ -255,7 +255,7 @@
         <script>
             $(document).ready(function() {
                 setTimeout(() => {
-                    swal("Failed", 'Mohon Form Terisi Dengan Benar', "danger");
+                    swal("Failed", 'Mohon Form Terisi Dengan Benar', "warning");
                 }, 1000);
 
             });
@@ -266,7 +266,7 @@
         <script>
             $(document).ready(function() {
                 setTimeout(() => {
-                    swal("Gagal", "{{ session('failed') }}", "danger");
+                    swal("Gagal", "{{ session('failed') }}", "warning");
                 }, 1000);
 
             });

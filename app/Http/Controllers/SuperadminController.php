@@ -111,9 +111,9 @@ class SuperadminController extends Controller
             User::where('id', $id)
             ->update($validate);
 
-            return redirect()->route('superadmin.index')->with('success', 'Data Berhasil Diubah');
+            return redirect()->back()->with('success', 'Data Berhasil Diubah');
         } catch (\Throwable $th) {
-            return redirect()->route('superadmin.index')->with('failed', 'Data Gagal Diubah');
+            return redirect()->back()->with('failed', 'Data Gagal Diubah');
         }
     }
 

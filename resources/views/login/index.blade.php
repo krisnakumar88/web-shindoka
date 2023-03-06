@@ -177,7 +177,7 @@
         <script>
             $(document).ready(function() {
                 setTimeout(() => {
-                    swal("Gagal", "{{ session('failed') }}", "danger");
+                    swal("Gagal", "{{ session('failed') }}", "warning");
                 }, 1000);
 
             });

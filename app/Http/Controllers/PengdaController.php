@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pengda;
 use App\Http\Requests\StorePengdaRequest;
 use App\Http\Requests\UpdatePengdaRequest;
+use App\Models\Pengcap;
 use Exception;
 
 class PengdaController extends Controller
@@ -80,6 +81,7 @@ class PengdaController extends Controller
      */
     public function update(UpdatePengdaRequest $request, Pengda $pengda)
     {
+        $request = $request->except(['_token','_method']);
         try {
             Pengda::where('id', $pengda->id)
                 ->update($request);
@@ -98,9 +100,12 @@ class PengdaController extends Controller
      */
     public function destroy(Pengda $pengda)
     {
+        $pengcab = Pengcap::where('id_pengda', $pengda->id)->count();
+        if ($pengcab > 0) {
+            return redirect()->route('pengda.index')->with('failed', 'Data Ini Terhubung Dengan Data Lain');
+        }
         try {
             Pengda::destroy($pengda->id);
-
             return redirect()->route('pengda.index')->with('success', 'Data Berhasil Dihapus');
         } catch (\Throwable $th) {
             return redirect()->route('pengda.index')->with('failed', 'Data Gagal Dihapus');

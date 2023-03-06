@@ -190,13 +190,13 @@
                                 <div class="form-group">
                                     <label class="">Pengurus Cabang</label>
                                     <select class="form-control select2 @error('id_pengcap') is-invalid @enderror"
-                                        name="id_pengda">
+                                        name="id_pengcap">
                                         <option label="Choose one">
                                         </option>
                                         @foreach ($pengcab as $cabang)
                                             @if ($item->pengcap->id == $cabang->id)
                                                 <option  selected value="{{ $cabang->id }}">
-                                                    {{ $cabang->nama_pengda }}
+                                                    {{ $cabang->nama_pengcap }}
                                                 </option>
                                             @else
                                                 <option value="{{ $cabang->id }}">
@@ -255,7 +255,7 @@
         <script>
             $(document).ready(function() {
                 setTimeout(() => {
-                    swal("Failed", 'Mohon Form Terisi Dengan Benar', "danger");
+                    swal("Failed", 'Mohon Form Terisi Dengan Benar', "warning");
                 }, 1000);
 
             });
@@ -266,7 +266,7 @@
         <script>
             $(document).ready(function() {
                 setTimeout(() => {
-                    swal("Gagal", "{{ session('failed') }}", "danger");
+                    swal("Gagal", "{{ session('failed') }}", "warning");
                 }, 1000);
 
             });

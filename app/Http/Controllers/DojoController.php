@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Dojo;
 use App\Http\Requests\StoreDojoRequest;
 use App\Http\Requests\UpdateDojoRequest;
+use App\Models\AdminDetail;
 use App\Models\Pengcap;
 
 class DojoController extends Controller
@@ -81,13 +82,16 @@ class DojoController extends Controller
      */
     public function update(UpdateDojoRequest $request, Dojo $dojo)
     {
+        $request = $request->except(['_token','_method']);
+
+        
         try {
             Dojo::where('id', $dojo->id)
                 ->update($request);
 
             return redirect()->route('dojo.index')->with('success', 'Data Berhasil Diperbarui');
         } catch (\Exception $th) {
-            return redirect()->route('dojo.index')->with('failed', 'Data Gagal Diperbarui');
+            return redirect()->route('dojo.index')->with('failed', $th->getMessage());
         }
     }
 
@@ -99,9 +103,12 @@ class DojoController extends Controller
      */
     public function destroy(Dojo $dojo)
     {
+        $admin = AdminDetail::where('id_dojo', $dojo->id)->count();
+        if ($admin > 0) {
+            return redirect()->route('dojo.index')->with('failed', 'Data Ini Terhubung Dengan Data Lain');
+        }
         try {
             Dojo::destroy($dojo->id);
-
             return redirect()->route('dojo.index')->with('success', 'Data Berhasil Dihapus');
         } catch (\Throwable $th) {
             return redirect()->route('dojo.index')->with('failed', 'Data Gagal Dihapus');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pengcap;
 use App\Http\Requests\StorePengcapRequest;
 use App\Http\Requests\UpdatePengcapRequest;
+use App\Models\Dojo;
 use App\Models\Pengda;
 use Exception;
 
@@ -82,8 +83,11 @@ class PengcapController extends Controller
      * @param  \App\Models\Pengcap  $pengcap
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePengcapRequest $request, Pengcap $pengcap)
+    public function update(UpdatePengcapRequest $request, $pengcap)
     {
+        $pengcap = Pengcap::where('id', $pengcap)->first();
+    
+        $request = $request->except(['_token','_method']);
         try {
             Pengcap::where('id', $pengcap->id)
                 ->update($request);
@@ -100,8 +104,16 @@ class PengcapController extends Controller
      * @param  \App\Models\Pengcap  $pengcap
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pengcap $pengcap)
+    public function destroy($pengcap)
     {
+        $pengcap = Pengcap::where('id', $pengcap)->first();
+        
+        $dojo = Dojo::where('id_pengcap', $pengcap->id)->count();
+        if ($dojo > 0) {
+            return redirect()->route('pengcab.index')->with('failed', 'Data Ini Terhubung Dengan Data Lain');
+        }
+
+        dd($dojo);
         try {
             Pengcap::destroy($pengcap->id);
 

@@ -154,7 +154,8 @@
                             </div>
                             <div class="form-group">
                                 <label class="">No HP</label>
-                                    <input type="tel" name="no_hp" class="form-control" id="mobile-number" placeholder="e.g. +1 702 123 4567">
+                                <input type="tel" name="no_hp" class="form-control" id="mobile-number"
+                                    placeholder="">
                                 @error('no_hp')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -181,13 +182,25 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="">Sabut Terakhir</label>
+                                <label class="">Sabuk Terakhir</label>
                                 <select class="form-control select2 @error('sabut') is-invalid @enderror"
                                     name="sabut_terakhir">
                                     <option label="Choose one">
                                     </option>
-                                    <option value="none">
-                                        None
+                                    <option value="Sabuk Putih">
+                                        Sabuk Putih
+                                    </option>
+                                    <option value="Sabuk Kuning">
+                                        Sabuk Kuning
+                                    </option>
+                                    <option value="Sabuk Biru">
+                                        Sabuk Biru
+                                    </option>
+                                    <option value="Sabuk Coklat">
+                                        Sabuk Coklat
+                                    </option>
+                                    <option value="Sabuk Hitam">
+                                        Sabuk Hitam
                                     </option>
                                 </select>
                                 @error('id_pengda')
@@ -196,6 +209,48 @@
                                     </div>
                                 @enderror
                             </div>
+                            @can('isAdmin')
+                                <div class="form-group">
+                                    <label class="">Dojo</label>
+                                    <select class="form-control select2 @error('id_dojo') is-invalid @enderror"
+                                        name="id_dojo" disabled>
+                                        <option label="Choose one">
+                                        </option>
+                                        @foreach ($dojo as $item)
+                                           @if ($admin->id_dojo == $item->id )
+                                           <option selected value="{{ $item->id }}">
+                                            {{ $item->nama_dojo }}
+                                        </option>
+                                           @endif
+                                        @endforeach
+                                    </select>
+                                    @error('id_pengda')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            @else
+                                <div class="form-group">
+                                    <label class="">Dojo</label>
+                                    <select class="form-control select2 @error('id_dojo') is-invalid @enderror"
+                                        name="id_dojo">
+                                        <option label="Choose one">
+                                        </option>
+                                        @foreach ($dojo as $item)
+                                            <option value="{{ $item->id }}">
+                                                {{ $item->nama_dojo }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('id_pengda')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            @endcan
+
                             <div class="form-group">
                                 <label class="">Prestasi</label>
                                 <textarea class="form-control @error('prestasi') is-invalid @enderror" name="prestasi" cols="5"
@@ -236,13 +291,14 @@
                             type="button"><span aria-hidden="true">&times;</span></button>
                         <h5 class="modal-title mb-4 text-center">Update Pengurus Cabang</h5>
                         <div class="">
-                            <form action="{{ route('anggota.update', $item->id) }}" method="post" enctype='multipart/form-data'>
+                            <form action="{{ route('anggota.update', $item->id) }}" method="post"
+                                enctype='multipart/form-data'>
                                 @csrf
-                                <input type="hidden" name="_method" value="PUT" >
+                                <input type="hidden" name="_method" value="PUT">
                                 <div class="form-group">
                                     <label class="">Nama Anggota</label>
-                                    <input class="form-control @error('name') is-invalid @enderror" required type="text"
-                                        name="name" value="{{ old('name', $item->nama) }}">
+                                    <input class="form-control @error('name') is-invalid @enderror" required
+                                        type="text" name="name" value="{{ old('name', $item->nama) }}">
                                     @error('name')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -251,8 +307,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="">Email</label>
-                                    <input class="form-control @error('email') is-invalid @enderror" required type="email"
-                                        name="email" value="{{ old('email', $item->user->email) }}">
+                                    <input class="form-control @error('email') is-invalid @enderror" required
+                                        type="email" name="email" value="{{ old('email', $item->user->email) }}">
                                     @error('email')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -261,8 +317,9 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="">Username</label>
-                                    <input class="form-control @error('username') is-invalid @enderror" required type="text"
-                                        name="username" value="{{ old('username', $item->user->username) }}">
+                                    <input class="form-control @error('username') is-invalid @enderror" required
+                                        type="text" name="username"
+                                        value="{{ old('username', $item->user->username) }}">
                                     @error('username')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -281,7 +338,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="">No HP</label>
-                                        <input type="tel" name="no_hp" class="form-control" id="mobile-number" value="{{ old('no_hp', $item->no_hp) }}" placeholder="e.g. +1 702 123 4567">
+                                    <input type="tel" name="no_hp" class="form-control" id="mobile-number"
+                                        value="{{ old('no_hp', $item->no_hp) }}" placeholder="e.g. +1 702 123 4567">
                                     @error('no_hp')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -300,7 +358,8 @@
                                 <div class="form-group">
                                     <label class="">Tahun Masuk</label>
                                     <input class="form-control @error('tahun_masuk') is-invalid @enderror" required
-                                        type="number" name="tahun_masuk" value="{{ old('tahun_masuk', $item->tahun_masuk) }}">
+                                        type="number" name="tahun_masuk"
+                                        value="{{ old('tahun_masuk', $item->tahun_masuk) }}">
                                     @error('tahun_masuk')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -313,12 +372,24 @@
                                         name="sabut_terakhir">
                                         <option label="Choose one">
                                         </option>
-                                        
-                                        <option value="none" @if ($item->sabut_terakhir === "none")
-                                            selected
-                                        @endif >
-                                            None
+
+                                        <option value="none" @if ($item->sabut_terakhir === 'Sabut Putih') selected @endif>
+                                            Sabut Putih
                                         </option>
+                                        <option value="Sabuk Kuning" @if ($item->sabut_terakhir === 'Sabut Kuning') selected @endif>
+                                            Sabuk Kuning
+                                        </option>
+                                        <option value="Sabuk Biru" @if ($item->sabut_terakhir === 'Sabuk Biru') selected @endif>
+                                            Sabuk Biru
+                                        </option>
+                                        <option value="Sabuk Coklat" @if ($item->sabut_terakhir === 'Sabuk Coklat') selected @endif>
+                                            Sabuk Coklat
+                                        </option>
+                                        <option value="Sabuk Hitam" @if ($item->sabut_terakhir === 'Sabuk Hitam') selected @endif>
+                                            Sabuk Hitam
+                                        </option>
+
+                                        
                                     </select>
                                     @error('id_pengda')
                                         <div class="invalid-feedback">
@@ -326,6 +397,54 @@
                                         </div>
                                     @enderror
                                 </div>
+                                @can('isAdmin')
+                                <div class="form-group">
+                                    <label class="">Dojo</label>
+                                    <select class="form-control select2 @error('id_dojo') is-invalid @enderror"
+                                        name="id_dojo" disabled>
+                                        <option label="Choose one">
+                                        </option>
+                                        @foreach ($dojo as $doji)
+                                           @if ($admin->id_dojo == $doji->id )
+                                           <option selected value="{{ $doji->id }}">
+                                            {{ $doji->nama_dojo }}
+                                        </option>
+                                           @endif
+                                        @endforeach
+                                    </select>
+                                    @error('id_pengda')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            @else
+                                <div class="form-group">
+                                    <label class="">Dojo</label>
+                                    <select class="form-control select2 @error('id_dojo') is-invalid @enderror"
+                                        name="id_dojo">
+                                        <option label="Choose one">
+                                        </option>
+                                        @foreach ($dojo as $doji)
+                                        @if ($admin->id_dojo == $doji->id )
+                                        <option selected value="{{ $doji->id }}">
+                                            {{ $doji->nama_dojo }}
+                                        </option>
+                                            
+                                        @else
+                                        <option value="{{ $doji->id }}">
+                                            {{ $doji->nama_dojo }}
+                                        </option>
+                                        @endif
+                                        @endforeach
+                                    </select>
+                                    @error('id_pengda')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            @endcan
                                 <div class="form-group">
                                     <label class="">Prestasi</label>
                                     <textarea class="form-control @error('prestasi') is-invalid @enderror" name="prestasi" cols="5"
@@ -338,17 +457,17 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="">Foto</label>
-                                    <input type="file" class="dropify" name="foto" data-default-file="/file/{{ $item->file->name }}"
-                                        data-height="200" />
+                                    <input type="file" class="dropify" name="foto"
+                                        data-default-file="/file/{{ $item->file->name }}" data-height="200" />
                                     @error('prestasi')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
                                     @enderror
                                 </div>
-    
+
                         </div>
-    
+
                         <button class="btn ripple btn-main-primary btn-block" id="submit">Submit</button>
                         </form>
                     </div>
@@ -374,7 +493,7 @@
         <script>
             $(document).ready(function() {
                 setTimeout(() => {
-                    swal("Failed", 'Mohon Form Terisi Dengan Benar', "danger");
+                    swal("Failed", 'Mohon Form Terisi Dengan Benar', "warning");
                 }, 1000);
 
             });

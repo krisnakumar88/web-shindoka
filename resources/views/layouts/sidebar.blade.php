@@ -34,26 +34,31 @@
                             class="shape2"></span><i class="fa fa-home sidemenu-icon"></i><span
                             class="sidemenu-label">Dojo</span></a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('anggota.index') }}"><span class="shape1"></span><span class="shape2"></span><i
+                            class="fa fa-users sidemenu-icon"></i><span class="sidemenu-label">Anggota</span></a>
+                </li>
 
 
                 <li class="nav-header"><span class="nav-label">Akses</span></li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/superadmin"><span class="shape1"></span><span class="shape2"></span><i
+                    <a class="nav-link" href="{{ route('superadmin.index') }}"><span class="shape1"></span><span class="shape2"></span><i
                             class="fa fa-user-tie sidemenu-icon"></i><span class="sidemenu-label">Superadmin</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin"><span class="shape1"></span><span class="shape2"></span><i
+                    <a class="nav-link" href="{{ route('admin.index') }}"><span class="shape1"></span><span class="shape2"></span><i
                             class="fa fa-user sidemenu-icon"></i><span class="sidemenu-label">Admin</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/anggota"><span class="shape1"></span><span class="shape2"></span><i
-                            class="fa fa-users sidemenu-icon"></i><span class="sidemenu-label">Anggota</span></a>
-                </li>
+                
             @elsecan('isAdmin')
                 <li class="nav-header"><span class="nav-label">Menu Utama</span></li>
                 <li class="nav-item">
                     <a class="nav-link" href="/"><span class="shape1"></span><span class="shape2"></span><i
                             class="ti-home sidemenu-icon"></i><span class="sidemenu-label">Dashboard</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('anggota.index') }}"><span class="shape1"></span><span class="shape2"></span><i
+                            class="fa fa-users sidemenu-icon"></i><span class="sidemenu-label">Anggota</span></a>
                 </li>
 
             @else

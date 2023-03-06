@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DojoController;
 use App\Http\Controllers\PengcapController;
 use App\Http\Controllers\PengdaController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperadminController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,8 @@ Route::post('/logout',[AuthController::class, 'logout'])->name('logout');
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/', [DashboardController::class, 'index']);
+
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
