@@ -237,7 +237,7 @@ class AnggotaController extends Controller
 
         $anggota = Anggota::where('id', $anggota)->first();
 
-        $foto = File::where('id', $$anggota->foto)->first();
+        $foto = File::where('id', $anggota->foto)->first();
 
         $user = User::where('id', $anggota->bring_by)->count();
 

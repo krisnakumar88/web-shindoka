@@ -113,7 +113,7 @@ class PengcapController extends Controller
             return redirect()->route('pengcab.index')->with('failed', 'Data Ini Terhubung Dengan Data Lain');
         }
 
-        dd($dojo);
+        
         try {
             Pengcap::destroy($pengcap->id);
 
