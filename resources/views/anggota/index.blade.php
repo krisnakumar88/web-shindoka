@@ -217,7 +217,7 @@
                                         <option label="Choose one">
                                         </option>
                                         @foreach ($dojo as $item)
-                                           @if ($admin->id_dojo == $item->id )
+                                           @if ($item->id_dojo == $item->id )
                                            <option selected value="{{ $item->id }}">
                                             {{ $item->nama_dojo }}
                                         </option>
@@ -426,7 +426,7 @@
                                         <option label="Choose one">
                                         </option>
                                         @foreach ($dojo as $doji)
-                                        @if ($admin->id_dojo == $doji->id )
+                                        @if ($item->id_dojo == $doji->id )
                                         <option selected value="{{ $doji->id }}">
                                             {{ $doji->nama_dojo }}
                                         </option>
