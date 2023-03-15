@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AdminDetail;
 use App\Models\Anggota;
+use App\Models\Dojo;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +24,12 @@ class ProfileController extends Controller
          if (Gate::allows('isSuperadmin')) {
             $superadmin = Auth::user();
             $send['superadmin'] = $superadmin;
+         }
+
+         if (Gate::allows('isAnggota')) {
+            $send['user'] = Auth::user();
+            $send['detail'] = Anggota::where('id_user', Auth::id())->first();
+            $send['dojo'] = Dojo::all();
          }
         
         return view('profile.index', $send);

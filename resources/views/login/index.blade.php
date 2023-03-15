@@ -105,18 +105,18 @@
                                 <div class="row row-sm">
                                     <div class="card-body mt-2 mb-2">
 
-                                        
+
                                         <img src="{{ asset('/assets/img/brand/logo.png') }}"
                                             class=" d-lg-none header-brand-img text-left float-left mb-4"
                                             alt="logo">
                                         <div class="clearfix"></div>
-                                        
+
                                         <form action="/login" method="POST">
                                             <h5 class="text-left mb-2">Login</h5>
                                             @csrf
                                             <p class="mb-4 text-muted tx-13 ml-0 text-left">Sistem Informasi Shindoka
                                             </p>
-                                            
+
                                             <div class="form-group text-left">
                                                 <label>Username</label>
                                                 <input class="form-control @error('username') is-invalid @enderror"
@@ -138,20 +138,27 @@
                                                     </div>
                                                 @enderror
                                             </div>
-                                            <button class="btn ripple btn-main-primary btn-block" type="submit">Masuk</button>
-                                                
+                                            <button class="btn ripple btn-main-primary btn-block"
+                                                type="submit">Masuk</button>
+
+                                            <div class="text-start mt-5 ms-0">
+                                                <div>Belum Menjadi Anggota? <a href="{{ route('register') }}">Daftar Disini</a></div>
+                                            </div>
+
                                         </form>
                                         <div class="text-left mt-5 ml-0">
                                             @if (session()->has('failed'))
-                                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                                <span class="alert-inner--icon"><i class="fe fe-info"></i></span>
-                                                <span class="alert-inner--text"><strong>Gagal Login! </strong>{{ session('failed') }}</span>
-                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                    <span aria-hidden="true">×</span>
-                                                </button>
-                                            </div>
-                                        
-                                        @endif
+                                                <div class="alert alert-warning alert-dismissible fade show"
+                                                    role="alert">
+                                                    <span class="alert-inner--icon"><i class="fe fe-info"></i></span>
+                                                    <span class="alert-inner--text"><strong>Gagal Login!
+                                                        </strong>{{ session('failed') }}</span>
+                                                    <button type="button" class="close" data-dismiss="alert"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                            @endif
                                             {{-- <div class="mb-1"><a href="{{ asset('pages/forgot') }}">Forgot password?</a></div>
 												<div>Don't have an account? <a href="{{ asset('pages/signup') }}">Register Here</a></div> --}}
                                         </div>

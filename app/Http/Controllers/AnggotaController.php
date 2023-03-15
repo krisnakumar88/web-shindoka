@@ -28,11 +28,10 @@ class AnggotaController extends Controller
         if (Gate::allows('isAdmin')) {
             $admin = AdminDetail::where('id_user', Auth::id())->first();
             $send['data']  = Anggota::where('id_dojo', $admin->id_dojo)->get();
-            $send['admin'] = $admin; 
-            
-         } else {
+            $send['admin'] = $admin;
+        } else {
             $send['data'] = Anggota::all();
-         }
+        }
         return view('anggota.index', $send);
     }
 
@@ -53,7 +52,7 @@ class AnggotaController extends Controller
      */
     public function store(Request $request)
     {
-        
+
 
         // dd($request);
         $dataFile = $request->validate([
@@ -84,7 +83,7 @@ class AnggotaController extends Controller
             'id_dojo'        => $request->input('id_dojo'),
         ];
 
-        
+
 
         $dataUser['password'] = Hash::make($dataUser['password']);
 
@@ -146,13 +145,28 @@ class AnggotaController extends Controller
     public function update(Request $request, $anggota)
     {
 
+
         $anggota = Anggota::where('id', $anggota)->first();
 
         $user = User::where('id', $anggota->id_user)->first();
 
-        $file = File::where('id', $anggota->foto)->first();
+        if ($user->foto == "") {
+            $file = File::create([
+                'name' => '',
+                'type' => '',
+                'size' => ''
+            ]);
 
-        
+            $anggota->foto = $file->id;
+
+            $anggota->save();
+        } else {
+            $file = File::where('id', $anggota->foto)->first();
+        }
+
+        // Ganti jadi firstOrCerate
+
+
 
         $dataAnggota = [
             'nama'           => $request->input('name'),
@@ -161,12 +175,13 @@ class AnggotaController extends Controller
             'tahun_masuk'    => $request->input('tahun_masuk'),
             'sabut_terakhir' => $request->input('sabut_terakhir'),
             'prestasi'       => $request->input('prestasi'),
+            'id_dojo'        => $request->input('id_dojo'),
         ];
 
         if ($request->foto != null || $request->foto != "") {
 
             $dataFile = $request->validate([
-                'foto' => 'required|file|mimes:jpg,jpeg,bmp,png'
+                'foto' => 'required|mimes:jpeg,jpg,png,gif,bmp,svg'
             ]);
 
             $type = $request->foto->getClientMimeType();
@@ -174,7 +189,9 @@ class AnggotaController extends Controller
 
             try {
 
-                unlink(public_path('/file/' .$file->name));
+                if (!$file->name == "") {
+                    unlink(public_path('/file/' . $file->name));
+                }
 
                 $fileName = time() . '-' . $request->foto->getClientOriginalName();
 
@@ -185,9 +202,8 @@ class AnggotaController extends Controller
                     'type' => $type,
                     'size' => $size
                 ]);
-
             } catch (\Throwable $th) {
-                return redirect()->route('anggota.index')->with('failed', 'Data Foto Gagal Diupdate');
+                return redirect()->back()->with('failed', $th->getMessage());
             }
         }
 
@@ -218,9 +234,9 @@ class AnggotaController extends Controller
             Anggota::where('id', $anggota->id)
                 ->update($dataAnggota);
 
-            return redirect()->route('anggota.index')->with('success', 'Data Berhasil Diupdate');
+            return redirect()->back()->with('success', 'Data Berhasil Diupdate');
         } catch (Exception $th) {
-            return redirect()->route('anggota.index')->with('failed', 'Data Gagal Diupdate');
+            return redirect()->back()->with('failed', $th->getMessage());
         }
     }
 
@@ -233,7 +249,7 @@ class AnggotaController extends Controller
     public function destroy($anggota)
     {
 
-        
+
 
         $anggota = Anggota::where('id', $anggota)->first();
 
@@ -241,12 +257,12 @@ class AnggotaController extends Controller
 
         $user = User::where('id', $anggota->bring_by)->count();
 
-        if(!$user > 0){
+        if (!$user > 0) {
             return redirect()->route('anggota.index')->with('failed', 'Data Gagal Dihapus');
         }
 
         try {
-            unlink(public_path('file/' .$foto->name));
+            unlink(public_path('file/' . $foto->name));
             User::where('id', $anggota->id_user)->delete();
             File::where('id', $anggota->foto)->delete();
             Anggota::destroy($anggota->id);

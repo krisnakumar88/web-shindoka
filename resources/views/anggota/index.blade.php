@@ -289,7 +289,7 @@
                     <div class="modal-body pd-20 pd-sm-40">
                         <button aria-label="Close" class="close pos-absolute t-15 r-20 tx-26" data-dismiss="modal"
                             type="button"><span aria-hidden="true">&times;</span></button>
-                        <h5 class="modal-title mb-4 text-center">Update Pengurus Cabang</h5>
+                        <h5 class="modal-title mb-4 text-center">Update Anggota</h5>
                         <div class="">
                             <form action="{{ route('anggota.update', $item->id) }}" method="post"
                                 enctype='multipart/form-data'>
@@ -402,7 +402,7 @@
                                     <label class="">Dojo</label>
                                     <select class="form-control select2 @error('id_dojo') is-invalid @enderror"
                                         name="id_dojo" disabled>
-                                        <option label="Choose one">
+                                        <option label="Belum Dipilih">
                                         </option>
                                         @foreach ($dojo as $doji)
                                            @if ($admin->id_dojo == $doji->id )
@@ -426,7 +426,7 @@
                                         <option label="Choose one">
                                         </option>
                                         @foreach ($dojo as $doji)
-                                        @if ($admin->id_dojo == $doji->id )
+                                        @if ($item->id_dojo == $doji->id )
                                         <option selected value="{{ $doji->id }}">
                                             {{ $doji->nama_dojo }}
                                         </option>
@@ -458,7 +458,7 @@
                                 <div class="form-group">
                                     <label class="">Foto</label>
                                     <input type="file" class="dropify" name="foto"
-                                        data-default-file="/file/{{ $item->file->name }}" data-height="200" />
+                                        data-default-file="/file/{{ $item->file->name ?? '' }}" data-height="200" />
                                     @error('prestasi')
                                         <div class="invalid-feedback">
                                             {{ $message }}

@@ -88,4 +88,5 @@
 <script src="{{ asset('/assets/plugins/telephoneinput/telephoneinput.js') }}"></script>
 <script src="{{ asset('/assets/plugins/telephoneinput/inttelephoneinput.js') }}"></script>
 
+
 @yield('script')

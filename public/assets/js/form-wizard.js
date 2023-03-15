@@ -13,7 +13,10 @@ $(function() {
 		bodyTag: 'section',
 		autoFocus: true,
 		titleTemplate: '<span class="number">#index#<\/span> <span class="title">#title#<\/span>',
-		stepsOrientation: 1
+		stepsOrientation: 1,
+		onFinished: function (event, currentIndex) {
+			$("#form-reg").submit();
+		  }
 	});
 	
 	//accordion-wizard

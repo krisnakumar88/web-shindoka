@@ -132,29 +132,81 @@
                                     </form>
                                 </div>
                             </div>
-                        @else
+                        @elsecan('isAnggota')
                             <div class="tab-pane fade show active" id="profil" role="tabpanel">
                                 <div class="d-flex align-items-start pb-3 border-bottom">
                                     <label class="main-content-label my-auto">Profil</label>
                                 </div>
                                 <div class="py-2">
                                     <div class="row py-2">
-                                        <div class="col-md-6"> <label id="nama_dojo">Nama Superadmin</label> <input
-                                                type="text" class="bg-white form-control" placeholder=""
-                                                value="{{ $superadmin->name }}" readonly>
+                                        <div class="col-md-6"> <label id="nama_dojo">Nama</label> <input type="text"
+                                                class="bg-white form-control" placeholder="" value="{{ $user->name }}"
+                                                readonly>
                                         </div>
                                         <div class="col-md-6 pt-md-0 pt-3"> <label id="pengcab">Username</label> <input
                                                 type="text" class="bg-white form-control" placeholder=""
-                                                value="{{ $superadmin->username }}" readonly> </div>
+                                                value="{{ $user->username }}" readonly> </div>
                                     </div>
                                     <div class="row py-2">
                                         <div class="col-md-6"> <label id="pic">Email</label> <input type="email"
-                                                class="bg-white form-control" placeholder=""
-                                                value="{{ $superadmin->email }}" readonly> </div>
+                                                class="bg-white form-control" placeholder="" value="{{ $user->email }}"
+                                                readonly> </div>
                                         <div class="col-md-6 pt-md-0 pt-3"> <label id="phoneno">Password</label> <input
                                                 type="password" class="bg-white form-control" placeholder=""
                                                 value="*************" readonly> </div>
                                     </div>
+                                    <hr>
+                                    <div class="row py-2">
+                                        <div class="col-md-6"> <label id="nama_dojo">Alamat</label>
+                                            <textarea cols="30" rows="10" id="nama_dojo" class="bg-white form-control" readonly>
+                                                {{ $detail->alamat }}
+                                            </textarea>
+                                        </div>
+                                        <div class="col-md-6 pt-md-0 pt-3"> <label id="pengcab">Foto</label>
+                                            <input type="file" class="dropify"
+                                                data-default-file="/file/{{ $detail->file->name ?? '' }}" data-height="200"
+                                                disabled />
+                                        </div>
+                                    </div>
+                                    <div class="row py-2">
+                                        <div class="col-md-6"> <label id="pic">Dojo</label>
+                                            <select class="form-control select2 @error('id_dojo') is-invalid @enderror"
+                                                name="id_dojo" disabled>
+                                                
+                                                @foreach ($dojo as $doji)
+                                                    @if ($detail->id_dojo == $doji->id)
+                                                        <option selected value="{{ $doji->id }}">
+                                                            {{ $doji->nama_dojo }}
+                                                        </option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-6 pt-md-0 pt-3"> <label id="phoneno">Sabut Terakhir</label>
+                                            <select class="form-control select2 @error('sabut') is-invalid @enderror"
+                                                name="sabut_terakhir" disabled>
+                                                
+                                                </option>
+
+                                                <option value="none" @if ($detail->sabut_terakhir === 'Sabut Putih') selected @endif>
+                                                    {{ $detail->sabut_terakhir }}
+                                                </option>
+                                                
+
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row py-2">
+                                        <div class="col-md-6"> <label id="pic">No_hp</label> <input type="email"
+                                                class="bg-white form-control" placeholder="" value="{{ $detail->no_hp }}"
+                                                readonly> </div>
+                                        <div class="col-md-6 pt-md-0 pt-3"> <label id="phoneno">Prestasi</label>
+                                            <textarea cols="30" rows="10" class="bg-white form-control" readonly>{{ $detail->prestasi }}</textarea>
+                                        </div>
+                                    </div>
+
 
                                 </div>
                             </div>
@@ -163,41 +215,246 @@
                                     <label class="main-content-label my-auto">Profil</label>
                                 </div>
                                 <div class="py-2">
-                                    <form action="{{ route('superadmin.update', $superadmin->id) }}" method="post">
-                                        <input type="hidden" name="_method" value="PUT">
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+                                    <form action="{{ route('anggota.update', $detail->id) }}" method="post" enctype='multipart/form-data'>
+                                        <input type="hidden" name="_method" value="PUT" >
                                         @csrf
                                         <div class="row py-2">
-                                            <div class="col-md-6"> <label id="nama_superadmin">Nama Superadmin</label> <input
-                                                    type="text" class="form-control" name="name" placeholder=""
-                                                    value="{{ $superadmin->name }}">
+                                            <div class="col-md-6"> <label id="nama">Nama</label> <input type="text"
+                                                    class="form-control" name="name" placeholder=""
+                                                    value="{{ $user->name }}">
+                                                @error('name')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                             </div>
                                             <div class="col-md-6 pt-md-0 pt-3"> <label id="pengcab">Username</label> <input
                                                     type="text" class="form-control" name="username" placeholder=""
-                                                    value="{{ $superadmin->username }}"> </div>
+                                                    value="{{ $user->username }}">
+                                                @error('username')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                            @error('name')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="row py-2">
                                             <div class="col-md-6"> <label id="pic">Email</label> <input type="email"
                                                     class="form-control" name="email" placeholder=""
-                                                    value="{{ $superadmin->email }}"> </div>
+                                                    value="{{ $user->email }}">
+                                                @error('email')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
                                             <div class="col-md-6 pt-md-0 pt-3"> <label id="phoneno">Password</label> <input
                                                     type="password" name="password" class="form-control" placeholder=""
                                                     value=""> </div>
                                         </div>
+                                        <hr>
                                         <div class="row py-2">
-
-                                            <div class="col-md-12 pt-md-0 pt-3"><button type="submit"
-                                                    class="btn btn-primary mt-4 btn-lg btn-block">Kirim</button> </div>
-
+                                            <div class="col-md-6"> <label id="nama_dojo">Alamat</label>
+                                                <textarea cols="30" rows="10" name="lokasi" class="bg-white form-control">
+                                                {{ $detail->alamat }}
+                                            </textarea>
+                                                @error('alamat')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                            <div class="col-md-6 pt-md-0 pt-3"> <label id="pengcab">Foto</label>
+                                                <input type="file" class="dropify" name="foto"
+                                                    data-default-file="/file/{{ $detail->file->name ?? '' }}"
+                                                    data-height="200" />
+                                                @error('foto')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </form>
-                                </div>
-                            </div>
-                        @endcan
+                                        <div class="row py-2">
+                                            <div class="col-md-6"> <label id="pic">Dojo</label>
+                                                <select class="form-control select2 @error('id_dojo') is-invalid @enderror"
+                                                    name="id_dojo">
+                                                    <option label="Choose one">
+                                                    </option>
+                                                    @foreach ($dojo as $doji)
+                                                        @if ($detail->id_dojo == $doji->id)
+                                                            <option selected value="{{ $doji->id }}">
+                                                                {{ $doji->nama_dojo }}
+                                                            </option>
+                                                        @else
+                                                            <option value="{{ $doji->id }}">
+                                                                {{ $doji->nama_dojo }}
+                                                            </option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                                @error('id_dojo')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
 
-                    </div>
+                                            <div class="col-md-6 pt-md-0 pt-3"> <label id="phoneno">Sabut Terakhir</label>
+                                                <select class="form-control select2 @error('sabut') is-invalid @enderror"
+                                                    name="sabut_terakhir">
+                                                    <option label="-">
+                                                    </option>
+
+                                                    <option value="none" @if ($detail->sabut_terakhir === 'Sabut Putih') selected @endif>
+                                                        Sabut Putih
+                                                    </option>
+                                                    <option value="Sabuk Kuning"
+                                                        @if ($detail->sabut_terakhir === 'Sabut Kuning') selected @endif>
+                                                        Sabuk Kuning
+                                                    </option>
+                                                    <option value="Sabuk Biru"
+                                                        @if ($detail->sabut_terakhir === 'Sabuk Biru') selected @endif>
+                                                        Sabuk Biru
+                                                    </option>
+                                                    <option value="Sabuk Coklat"
+                                                        @if ($detail->sabut_terakhir === 'Sabuk Coklat') selected @endif>
+                                                        Sabuk Coklat
+                                                    </option>
+                                                    <option value="Sabuk Hitam"
+                                                        @if ($detail->sabut_terakhir === 'Sabuk Hitam') selected @endif>
+                                                        Sabuk Hitam
+                                                    </option>
+
+
+                                                </select>
+                                                @error('sabut_terakhir')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="row py-2">
+                                            <div class="col-md-6"> <label id="pic">No_hp</label> <input type="tel"
+                                                    name="no_hp" class="form-control" id="mobile-number"
+                                                    value="{{ old('no_hp', $detail->no_hp) }}"
+                                                    placeholder="e.g. +1 702 123 4567">
+                                                @error('no_hp')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                                <br>
+                                                <label id="pengcab">Tahun Masuk</label> <input type="text"
+                                                    class="form-control" name="tahun_masuk" placeholder=""
+                                                    value="{{ $detail->tahun_masuk }}">
+                                                @error('tahun_masuk')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                            <div class="col-md-6 pt-md-0 pt-3"> <label id="phoneno">Prestasi</label>
+                                                <textarea name="prestasi" cols="30" rows="10" class="bg-white form-control">{{ $detail->prestasi }}</textarea>
+                                                @error('prestasi')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                </div>
+                                <div class="row py-2">
+
+                                    <div class="col-md-12 pt-md-0 pt-3"><button type="submit"
+                                            class="btn btn-primary mt-4 btn-lg btn-block">Kirim</button> </div>
+
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    @else
+                        <div class="tab-pane fade show active" id="profil" role="tabpanel">
+                            <div class="d-flex align-items-start pb-3 border-bottom">
+                                <label class="main-content-label my-auto">Profil</label>
+                            </div>
+                            <div class="py-2">
+                                <div class="row py-2">
+                                    <div class="col-md-6"> <label id="nama_dojo">Nama Superadmin</label> <input
+                                            type="text" class="bg-white form-control" placeholder=""
+                                            value="{{ $superadmin->name }}" readonly>
+                                    </div>
+                                    <div class="col-md-6 pt-md-0 pt-3"> <label id="pengcab">Username</label> <input
+                                            type="text" class="bg-white form-control" placeholder=""
+                                            value="{{ $superadmin->username }}" readonly> </div>
+                                </div>
+                                <div class="row py-2">
+                                    <div class="col-md-6"> <label id="pic">Email</label> <input type="email"
+                                            class="bg-white form-control" placeholder="" value="{{ $superadmin->email }}"
+                                            readonly> </div>
+                                    <div class="col-md-6 pt-md-0 pt-3"> <label id="phoneno">Password</label> <input
+                                            type="password" class="bg-white form-control" placeholder=""
+                                            value="*************" readonly> </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="edit" role="tabpanel">
+                            <div class="d-flex align-items-start pb-3 border-bottom">
+                                <label class="main-content-label my-auto">Profil</label>
+                            </div>
+                            <div class="py-2">
+                                <form action="{{ route('superadmin.update', $superadmin->id) }}" method="post">
+                                    <input type="hidden" name="_method" value="PUT">
+                                    @csrf
+                                    <div class="row py-2">
+                                        <div class="col-md-6"> <label id="nama_superadmin">Nama Superadmin</label> <input
+                                                type="text" class="form-control" name="name" placeholder=""
+                                                value="{{ $superadmin->name }}">
+                                        </div>
+                                        <div class="col-md-6 pt-md-0 pt-3"> <label id="pengcab">Username</label> <input
+                                                type="text" class="form-control" name="username" placeholder=""
+                                                value="{{ $superadmin->username }}"> </div>
+                                    </div>
+                                    <div class="row py-2">
+                                        <div class="col-md-6"> <label id="pic">Email</label> <input type="email"
+                                                class="form-control" name="email" placeholder=""
+                                                value="{{ $superadmin->email }}"> </div>
+                                        <div class="col-md-6 pt-md-0 pt-3"> <label id="phoneno">Password</label> <input
+                                                type="password" name="password" class="form-control" placeholder=""
+                                                value=""> </div>
+                                    </div>
+                                    <div class="row py-2">
+
+                                        <div class="col-md-12 pt-md-0 pt-3"><button type="submit"
+                                                class="btn btn-primary mt-4 btn-lg btn-block">Kirim</button> </div>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    @endcan
+
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection
 
