@@ -62,11 +62,7 @@
                 </li>
 
             @else
-            <li class="nav-header"><span class="nav-label">Menu Utama</span></li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/"><span class="shape1"></span><span class="shape2"></span><i
-                            class="ti-home sidemenu-icon"></i><span class="sidemenu-label">Dashboard</span></a>
-                </li>
+            
             @endcan
 
 

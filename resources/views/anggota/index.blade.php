@@ -40,6 +40,15 @@
 
 
                             </div>
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             <div class="table-responsive">
                                 <table class="table" id="tablePengcab">
                                     <thead>
@@ -154,8 +163,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="">No HP</label>
-                                <input type="tel" name="no_hp" class="form-control" id="mobile-number"
-                                    placeholder="">
+                                <input type="tel" name="no_hp" class="form-control" placeholder="">
                                 @error('no_hp')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -212,16 +220,16 @@
                             @can('isAdmin')
                                 <div class="form-group">
                                     <label class="">Dojo</label>
-                                    <select class="form-control select2 @error('id_dojo') is-invalid @enderror"
-                                        name="id_dojo" readonly>
+                                    <select class="form-control select2 @error('id_dojo') is-invalid @enderror" name="id_dojo"
+                                        readonly>
                                         <option label="Choose one">
                                         </option>
                                         @foreach ($dojo as $item)
-                                           @if ($admin->id_dojo == $item->id )
-                                           <option selected value="{{ $item->id }}">
-                                            {{ $item->nama_dojo }}
-                                        </option>
-                                           @endif
+                                            @if ($admin->id_dojo == $item->id)
+                                                <option selected value="{{ $item->id }}">
+                                                    {{ $item->nama_dojo }}
+                                                </option>
+                                            @endif
                                         @endforeach
                                     </select>
                                     @error('id_pengda')
@@ -338,8 +346,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="">No HP</label>
-                                    <input type="tel" name="no_hp" class="form-control" id="mobile-number"
-                                        value="{{ old('no_hp', $item->no_hp) }}" placeholder="e.g. +1 702 123 4567">
+                                    <input type="tel" name="no_hp" class="form-control"
+                                        value="{{ old('no_hp', $item->no_hp) }}">
                                     @error('no_hp')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -370,13 +378,12 @@
                                     <label class="">Sabut Terakhir</label>
                                     <select class="form-control select2 @error('sabut') is-invalid @enderror"
                                         name="sabut_terakhir">
-                                        <option label="Choose one">
-                                        </option>
 
-                                        <option value="none" @if ($item->sabut_terakhir === 'Sabut Putih') selected @endif>
-                                            Sabut Putih
+
+                                        <option value="Sabuk Putih" @if ($item->sabut_terakhir === 'Sabuk Putih') selected @endif>
+                                            Sabuk Putih
                                         </option>
-                                        <option value="Sabuk Kuning" @if ($item->sabut_terakhir === 'Sabut Kuning') selected @endif>
+                                        <option value="Sabuk Kuning" @if ($item->sabut_terakhir === 'Sabuk Kuning') selected @endif>
                                             Sabuk Kuning
                                         </option>
                                         <option value="Sabuk Biru" @if ($item->sabut_terakhir === 'Sabuk Biru') selected @endif>
@@ -389,7 +396,7 @@
                                             Sabuk Hitam
                                         </option>
 
-                                        
+
                                     </select>
                                     @error('id_pengda')
                                         <div class="invalid-feedback">
@@ -398,53 +405,52 @@
                                     @enderror
                                 </div>
                                 @can('isAdmin')
-                                <div class="form-group">
-                                    <label class="">Dojo</label>
-                                    <select class="form-control select2 @error('id_dojo') is-invalid @enderror"
-                                        name="id_dojo" disabled>
-                                        <option label="Belum Dipilih">
-                                        </option>
-                                        @foreach ($dojo as $doji)
-                                           @if ($admin->id_dojo == $doji->id )
-                                           <option selected value="{{ $doji->id }}">
-                                            {{ $doji->nama_dojo }}
-                                        </option>
-                                           @endif
-                                        @endforeach
-                                    </select>
-                                    @error('id_pengda')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            @else
-                                <div class="form-group">
-                                    <label class="">Dojo</label>
-                                    <select class="form-control select2 @error('id_dojo') is-invalid @enderror"
-                                        name="id_dojo">
-                                        <option label="Choose one">
-                                        </option>
-                                        @foreach ($dojo as $doji)
-                                        @if ($item->id_dojo == $doji->id )
-                                        <option selected value="{{ $doji->id }}">
-                                            {{ $doji->nama_dojo }}
-                                        </option>
-                                            
-                                        @else
-                                        <option value="{{ $doji->id }}">
-                                            {{ $doji->nama_dojo }}
-                                        </option>
-                                        @endif
-                                        @endforeach
-                                    </select>
-                                    @error('id_pengda')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            @endcan
+                                    <div class="form-group">
+                                        <label class="">Dojo</label>
+                                        <select class="form-control select2 @error('id_dojo') is-invalid @enderror"
+                                            name="id_dojo" disabled>
+                                            <option label="Belum Dipilih">
+                                            </option>
+                                            @foreach ($dojo as $doji)
+                                                @if ($admin->id_dojo == $doji->id)
+                                                    <option selected value="{{ $doji->id }}">
+                                                        {{ $doji->nama_dojo }}
+                                                    </option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                        @error('id_pengda')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                @else
+                                    <div class="form-group">
+                                        <label class="">Dojo</label>
+                                        <select class="form-control select2 @error('id_dojo') is-invalid @enderror"
+                                            name="id_dojo">
+                                            <option label="Choose one">
+                                            </option>
+                                            @foreach ($dojo as $doji)
+                                                @if ($item->id_dojo == $doji->id)
+                                                    <option selected value="{{ $doji->id }}">
+                                                        {{ $doji->nama_dojo }}
+                                                    </option>
+                                                @else
+                                                    <option value="{{ $doji->id }}">
+                                                        {{ $doji->nama_dojo }}
+                                                    </option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                        @error('id_pengda')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                @endcan
                                 <div class="form-group">
                                     <label class="">Prestasi</label>
                                     <textarea class="form-control @error('prestasi') is-invalid @enderror" name="prestasi" cols="5"
@@ -458,7 +464,8 @@
                                 <div class="form-group">
                                     <label class="">Foto</label>
                                     <input type="file" class="dropify" name="foto"
-                                        data-default-file="/file/{{ $item->file->name ?? '' }}" data-height="200" />
+                                        data-default-file="{{ asset('images/' . ($item->file->name ?? '')) }}"
+                                        data-height="200" />
                                     @error('prestasi')
                                         <div class="invalid-feedback">
                                             {{ $message }}

@@ -200,7 +200,7 @@
                                                 </option>
                                             @else
                                                 <option value="{{ $cabang->id }}">
-                                                    {{ $cabang->nama_pengda }}
+                                                    {{ $cabang->nama_pengcap }}
                                                 </option>
                                             @endif
                                         @endforeach

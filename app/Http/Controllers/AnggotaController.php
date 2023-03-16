@@ -13,6 +13,8 @@ use Exception;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Storage;
 
 class AnggotaController extends Controller
 {
@@ -55,62 +57,73 @@ class AnggotaController extends Controller
 
 
         // dd($request);
-        $dataFile = $request->validate([
-            'foto' => 'required|file|mimes:jpg,jpeg,bmp,png'
-        ]);
+        // $dataFile = $request->validate([
+        //     'foto' => 'required|file|mimes:jpg,jpeg,bmp,png'
+        // ]);
 
-        $type = $request->foto->getClientMimeType();
-        $size = $request->foto->getSize();
+        // if ($request->hasFile('foto')) {
+        //     $filenameWithExt = $request->file('foto')->getClientOriginalName();
+        //     $type = $request->file('foto')->getClientMimeType();
+        //     $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        //     $extension = $request->file('foto')->getClientOriginalExtension();
+        //     $filenameSimpan = $filename . '_' . time() . '.' . $extension;
+        //     $size = $request->file('foto')->getSize();
+        // } else {
+        //     return redirect()->back()->with('failed', 'Gambar Belum Masuk');
+        // }
 
-        $fileName = time() . '-' . $request->foto->getClientOriginalName();
+        // // $type = $request->foto->getClientMimeType();
+        // // $size = $request->foto->getSize();
 
-
-        $dataUser = $request->validate([
-            'name'     => 'required|min:3|max:255',
-            'email'    => 'required|email:dns',
-            'username' => 'required|unique:users|min:3',
-            'password' => 'required|min:3'
-        ]);
-
-        $dataAnggota = [
-            'nama'           => $request->input('name'),
-            'alamat'         => $request->input('lokasi'),
-            'no_hp'          => $request->input('no_hp'),
-            'tahun_masuk'    => $request->input('tahun_masuk'),
-            'sabut_terakhir' => $request->input('sabut_terakhir'),
-            'prestasi'       => $request->input('prestasi'),
-            'bring_by'       => Auth::user()->id,
-            'id_dojo'        => $request->input('id_dojo'),
-        ];
+        // // $fileName = time() . '-' . $request->foto->getClientOriginalName();
 
 
+        // $dataUser = $request->validate([
+        //     'name'     => 'required|min:3|max:255',
+        //     'email'    => 'required|email:dns',
+        //     'username' => 'required|unique:users|min:3',
+        //     'password' => 'required|min:3'
+        // ]);
 
-        $dataUser['password'] = Hash::make($dataUser['password']);
+        // $dataAnggota = [
+        //     'nama'           => $request->input('name'),
+        //     'alamat'         => $request->input('lokasi'),
+        //     'no_hp'          => $request->input('no_hp'),
+        //     'tahun_masuk'    => $request->input('tahun_masuk'),
+        //     'sabut_terakhir' => $request->input('sabut_terakhir'),
+        //     'prestasi'       => $request->input('prestasi'),
+        //     'bring_by'       => Auth::user()->id,
+        //     'id_dojo'        => $request->input('id_dojo'),
+        // ];
 
-        $dataUser['role'] = "anggota";
 
-        try {
 
-            $user = User::FirstOrCreate($dataUser);
+        // $dataUser['password'] = Hash::make($dataUser['password']);
 
-            $dataAnggota['id_user'] = $user->id;
+        // $dataUser['role'] = "anggota";
 
-            $request->foto->move(public_path('/file/'), $fileName);
+        // try {
 
-            $file = File::create([
-                'name' => $fileName,
-                'type' => $type,
-                'size' => $size
-            ]);
+        //     $user = User::FirstOrCreate($dataUser);
 
-            $dataAnggota['foto'] = $file->id;
+        //     $dataAnggota['id_user'] = $user->id;
 
-            $anggota = Anggota::create($dataAnggota);
+        //     $file = File::create([
+        //         'name' => $filenameSimpan,
+        //         'type' => $type,
+        //         'size' => $size
+        //     ]);
 
-            return redirect()->route('anggota.index')->with('success', 'Data Berhasil Ditambahkan');
-        } catch (\Throwable $th) {
-            return redirect()->route('anggota.index')->with('failed', 'Data Gagal Ditambahkan, ' . $th->getMessage());
-        }
+        //     $dataAnggota['foto'] = $file->id;
+
+        //     $anggota = Anggota::create($dataAnggota);
+
+        //     $path = $request->file('foto')->storeAs('images', $filenameSimpan);
+
+        //     return redirect()->route('anggota.index')->with('success', 'Data Berhasil Ditambahkan');
+        // } catch (\Throwable $th) {
+        //     return redirect()->route('anggota.index')->with('failed', 'Data Gagal Ditambahkan, ' . $th->getMessage());
+        // }
     }
 
     /**
@@ -146,98 +159,103 @@ class AnggotaController extends Controller
     {
 
 
-        $anggota = Anggota::where('id', $anggota)->first();
+        // $anggota = Anggota::where('id', $anggota)->first();
 
-        $user = User::where('id', $anggota->id_user)->first();
+        // $user = User::where('id', $anggota->id_user)->first();
 
-        if ($user->foto == "") {
-            $file = File::create([
-                'name' => '',
-                'type' => '',
-                'size' => ''
-            ]);
+        // if ($user->foto == "") {
+        //     $file = File::create([
+        //         'name' => '',
+        //         'type' => '',
+        //         'size' => ''
+        //     ]);
 
-            $anggota->foto = $file->id;
+        //     $anggota->foto = $file->id;
 
-            $anggota->save();
-        } else {
-            $file = File::where('id', $anggota->foto)->first();
-        }
+        //     $anggota->save();
+        // } else {
+        //     $file = File::where('id', $anggota->foto)->first();
+        // }
 
-        // Ganti jadi firstOrCerate
-
-
-
-        $dataAnggota = [
-            'nama'           => $request->input('name'),
-            'alamat'         => $request->input('lokasi'),
-            'no_hp'          => $request->input('no_hp'),
-            'tahun_masuk'    => $request->input('tahun_masuk'),
-            'sabut_terakhir' => $request->input('sabut_terakhir'),
-            'prestasi'       => $request->input('prestasi'),
-            'id_dojo'        => $request->input('id_dojo'),
-        ];
-
-        if ($request->foto != null || $request->foto != "") {
-
-            $dataFile = $request->validate([
-                'foto' => 'required|mimes:jpeg,jpg,png,gif,bmp,svg'
-            ]);
-
-            $type = $request->foto->getClientMimeType();
-            $size = $request->foto->getSize();
-
-            try {
-
-                if (!$file->name == "") {
-                    unlink(public_path('/file/' . $file->name));
-                }
-
-                $fileName = time() . '-' . $request->foto->getClientOriginalName();
-
-                $request->foto->move(public_path('/file/'), $fileName);
-
-                $file = File::where('id', $anggota->foto)->update([
-                    'name' => $fileName,
-                    'type' => $type,
-                    'size' => $size
-                ]);
-            } catch (\Throwable $th) {
-                return redirect()->back()->with('failed', $th->getMessage());
-            }
-        }
-
-        $rules = [
-            'name'  => 'required|min:3|max:255',
-            'email' => 'required'
-        ];
-
-        if ($request->password != "") {
-            $rules['password'] = 'required|unique:users|min:3';
-        }
-
-        if ($request->username != $user->username) {
-            $rules['username'] = 'required|unique:users';
-        }
-
-        $validate = $request->validate($rules);
-
-        if ($request->password != "") {
-            $validate['password'] = Hash::make($validate['password']);
-        }
+        // // Ganti jadi firstOrCerate
 
 
-        try {
-            User::where('id', $user->id)
-                ->update($validate);
 
-            Anggota::where('id', $anggota->id)
-                ->update($dataAnggota);
+        // $dataAnggota = [
+        //     'nama'           => $request->input('name'),
+        //     'alamat'         => $request->input('lokasi'),
+        //     'no_hp'          => $request->input('no_hp'),
+        //     'tahun_masuk'    => $request->input('tahun_masuk'),
+        //     'sabut_terakhir' => $request->input('sabut_terakhir'),
+        //     'prestasi'       => $request->input('prestasi'),
+        //     'id_dojo'        => $request->input('id_dojo'),
+        // ];
 
-            return redirect()->back()->with('success', 'Data Berhasil Diupdate');
-        } catch (Exception $th) {
-            return redirect()->back()->with('failed', $th->getMessage());
-        }
+        // if ($request->foto != null || $request->foto != "") {
+
+        //     $dataFile = $request->validate([
+        //         'foto' => 'required|mimes:jpeg,jpg,png,gif,bmp,svg'
+        //     ]);
+
+        //     $filenameWithExt = $request->file('foto')->getClientOriginalName();
+        //     $type = $request->file('foto')->getClientMimeType();
+        //     $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        //     $extension = $request->file('foto')->getClientOriginalExtension();
+        //     $filenameSimpan = $filename . '_' . time() . '.' . $extension;
+        //     $size = $request->file('foto')->getSize();
+
+        //     try {
+
+        //         if (!$file->name == "") {
+        //             unlink(asset('images/' . $file->name));
+        //             Storage::delete('images/' . $file->name);
+        //         }
+
+
+
+        //         $path = $request->file('foto')->storeAs('images', $filenameSimpan);
+
+        //         $file = File::where('id', $anggota->foto)->update([
+        //             'name' => $filenameSimpan,
+        //             'type' => $type,
+        //             'size' => $size
+        //         ]);
+        //     } catch (\Throwable $th) {
+        //         return redirect()->back()->with('failed', $th->getMessage());
+        //     }
+        // }
+
+        // $rules = [
+        //     'name'  => 'required|min:3|max:255',
+        //     'email' => 'required'
+        // ];
+
+        // if ($request->password != "") {
+        //     $rules['password'] = 'required|unique:users|min:3';
+        // }
+
+        // if ($request->username != $user->username) {
+        //     $rules['username'] = 'required|unique:users';
+        // }
+
+        // $validate = $request->validate($rules);
+
+        // if ($request->password != "") {
+        //     $validate['password'] = Hash::make($validate['password']);
+        // }
+
+
+        // try {
+        //     User::where('id', $user->id)
+        //         ->update($validate);
+
+        //     Anggota::where('id', $anggota->id)
+        //         ->update($dataAnggota);
+
+        //     return redirect()->back()->with('success', 'Data Berhasil Diupdate');
+        // } catch (Exception $th) {
+        //     return redirect()->back()->with('failed', $th->getMessage());
+        // }
     }
 
     /**
@@ -249,26 +267,28 @@ class AnggotaController extends Controller
     public function destroy($anggota)
     {
 
+        // $anggota = Anggota::where('id', $anggota)->first();
+
+        // $foto = File::where('id', $anggota->foto)->first();
+
+        // $user = User::where('id', $anggota->bring_by)->count();
+
+        // if (!$user > 0) {
+        //     return redirect()->route('anggota.index')->with('failed', 'Data Gagal Dihapus');
+        // }
+
+        // try {
+
+            
+        //     Storage::delete('images/' . $foto->name);
 
 
-        $anggota = Anggota::where('id', $anggota)->first();
-
-        $foto = File::where('id', $anggota->foto)->first();
-
-        $user = User::where('id', $anggota->bring_by)->count();
-
-        if (!$user > 0) {
-            return redirect()->route('anggota.index')->with('failed', 'Data Gagal Dihapus');
-        }
-
-        try {
-            unlink(public_path('file/' . $foto->name));
-            User::where('id', $anggota->id_user)->delete();
-            File::where('id', $anggota->foto)->delete();
-            Anggota::destroy($anggota->id);
-            return redirect()->route('anggota.index')->with('success', 'Data Berhasil Dihapus');
-        } catch (\Throwable $th) {
-            return redirect()->route('anggota.index')->with('failed', 'Data Gagal Dihapus');
-        }
+        //     User::where('id', $anggota->id_user)->delete();
+        //     File::where('id', $anggota->foto)->delete();
+        //     Anggota::destroy($anggota->id);
+        //     return redirect()->route('anggota.index')->with('success', 'Data Berhasil Dihapus');
+        // } catch (\Throwable $th) {
+        //     return redirect()->route('anggota.index')->with('failed', 'Data Gagal Dihapus' . $th->getMessage());
+        // }
     }
 }

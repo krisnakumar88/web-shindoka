@@ -35,6 +35,10 @@ class DashboardController extends Controller
 
          }
 
+         if (Gate::allows('isAnggota')) {
+            return redirect()->route('profile');
+         }
+
         return view('dashboard.index', $send);
     }
 }

@@ -170,7 +170,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="">No. Hp</label>
-                                    <input type="tel" name="no_hp" class="form-control" id="mobile-number" placeholder="e.g. +1 702 123 4567">
+                                    <input type="tel" name="no_hp" class="form-control">
                                 @error('no_hp')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -267,7 +267,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="">No. Hp</label>
-                                        <input type="tel" name="no_hp" class="form-control" id="mobile-number" placeholder="" value="{{ old('no_hp', $item->no_hp) }}">
+                                        <input type="tel" name="no_hp" class="form-control" value="{{ old('no_hp', $item->no_hp) }}">
                                     @error('no_hp')
                                         <div class="invalid-feedback">
                                             {{ $message }}

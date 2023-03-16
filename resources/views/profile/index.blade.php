@@ -164,15 +164,15 @@
                                         </div>
                                         <div class="col-md-6 pt-md-0 pt-3"> <label id="pengcab">Foto</label>
                                             <input type="file" class="dropify"
-                                                data-default-file="/file/{{ $detail->file->name ?? '' }}" data-height="200"
-                                                disabled />
+                                                data-default-file="{{ asset('images/' . ($detail->file->name ?? '')) }}"
+                                                data-height="200" disabled />
                                         </div>
                                     </div>
                                     <div class="row py-2">
                                         <div class="col-md-6"> <label id="pic">Dojo</label>
                                             <select class="form-control select2 @error('id_dojo') is-invalid @enderror"
                                                 name="id_dojo" disabled>
-                                                
+
                                                 @foreach ($dojo as $doji)
                                                     @if ($detail->id_dojo == $doji->id)
                                                         <option selected value="{{ $doji->id }}">
@@ -186,22 +186,26 @@
                                         <div class="col-md-6 pt-md-0 pt-3"> <label id="phoneno">Sabut Terakhir</label>
                                             <select class="form-control select2 @error('sabut') is-invalid @enderror"
                                                 name="sabut_terakhir" disabled>
-                                                
+
                                                 </option>
 
-                                                <option value="none" @if ($detail->sabut_terakhir === 'Sabut Putih') selected @endif>
+                                                <option value="{{ $detail->sabut_terakhir }}" selected>
                                                     {{ $detail->sabut_terakhir }}
                                                 </option>
-                                                
+
 
 
                                             </select>
                                         </div>
                                     </div>
                                     <div class="row py-2">
-                                        <div class="col-md-6"> <label id="pic">No_hp</label> <input type="email"
+                                        <div class="col-md-6"> <label id="pic">No_hp</label> <input type="text"
                                                 class="bg-white form-control" placeholder="" value="{{ $detail->no_hp }}"
-                                                readonly> </div>
+                                                readonly>
+                                            <label id="pengcab">Tahun Masuk</label> <input type="text"
+                                                class="form-control" name="tahun_masuk" placeholder=""
+                                                value="{{ $detail->tahun_masuk }}" readonly>
+                                        </div>
                                         <div class="col-md-6 pt-md-0 pt-3"> <label id="phoneno">Prestasi</label>
                                             <textarea cols="30" rows="10" class="bg-white form-control" readonly>{{ $detail->prestasi }}</textarea>
                                         </div>
@@ -224,8 +228,9 @@
                                             </ul>
                                         </div>
                                     @endif
-                                    <form action="{{ route('anggota.update', $detail->id) }}" method="post" enctype='multipart/form-data'>
-                                        <input type="hidden" name="_method" value="PUT" >
+                                    <form action="{{ route('anggota.update', $detail->id) }}" method="post"
+                                        enctype='multipart/form-data'>
+                                        <input type="hidden" name="_method" value="PUT">
                                         @csrf
                                         <div class="row py-2">
                                             <div class="col-md-6"> <label id="nama">Nama</label> <input type="text"
@@ -280,7 +285,7 @@
                                             </div>
                                             <div class="col-md-6 pt-md-0 pt-3"> <label id="pengcab">Foto</label>
                                                 <input type="file" class="dropify" name="foto"
-                                                    data-default-file="/file/{{ $detail->file->name ?? '' }}"
+                                                    data-default-file="{{ asset('images/' . ($detail->file->name ?? '')) }}"
                                                     data-height="200" />
                                                 @error('foto')
                                                     <div class="invalid-feedback">
@@ -314,17 +319,17 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="col-md-6 pt-md-0 pt-3"> <label id="phoneno">Sabut Terakhir</label>
+                                            <div class="col-md-6 pt-md-0 pt-3"> <label id="phoneno">Sabuk Terakhir</label>
                                                 <select class="form-control select2 @error('sabut') is-invalid @enderror"
                                                     name="sabut_terakhir">
                                                     <option label="-">
                                                     </option>
 
-                                                    <option value="none" @if ($detail->sabut_terakhir === 'Sabut Putih') selected @endif>
-                                                        Sabut Putih
+                                                    <option value="Sabuk Putih" @if ($detail->sabut_terakhir === 'Sabuk Putih') selected @endif>
+                                                        SabuK Putih
                                                     </option>
                                                     <option value="Sabuk Kuning"
-                                                        @if ($detail->sabut_terakhir === 'Sabut Kuning') selected @endif>
+                                                        @if ($detail->sabut_terakhir === 'Sabuk Kuning') selected @endif>
                                                         Sabuk Kuning
                                                     </option>
                                                     <option value="Sabuk Biru"
@@ -351,9 +356,8 @@
                                         </div>
                                         <div class="row py-2">
                                             <div class="col-md-6"> <label id="pic">No_hp</label> <input type="tel"
-                                                    name="no_hp" class="form-control" id="mobile-number"
-                                                    value="{{ old('no_hp', $detail->no_hp) }}"
-                                                    placeholder="e.g. +1 702 123 4567">
+                                                    name="no_hp" class="form-control"
+                                                    value="{{ old('no_hp', $detail->no_hp) }}">
                                                 @error('no_hp')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
